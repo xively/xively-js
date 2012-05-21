@@ -1,0 +1,4 @@
+cosmjs
+======
+
+Cosm Javascript Library
