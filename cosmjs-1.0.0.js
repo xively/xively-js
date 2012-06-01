@@ -4,7 +4,8 @@
 // http://petecorreia.com/cosmjs/
 // released under the MIT license
 
-var cosm = (function() {
+var cosm = (function ( $ ) {
+  "use strict";
 
   /*
   *
@@ -20,17 +21,36 @@ var cosm = (function() {
       // HELPERS 
       //
       
-      serialize = function( obj ) {
+      serialize = function ( obj ) {
         var str = [];
-        for( var p in obj )
-           str.push( p + "=" + obj[p] );
+        for( var p in obj ) {
+          if ( obj.hasOwnProperty( p ) ) {
+            str.push( p + "=" + obj[p] );
+          }
+        }
         return str.join( "&" );
       },
       
       merge = function ( obj1 , obj2 ) {
-        for( var i in obj2 ) { obj1[i] = obj2[i]; }
+        for( var i in obj2 ) {
+          if ( obj2.hasOwnProperty( i ) ) { 
+            obj1[i] = obj2[i];
+          }
+        }
         return obj1;
-      };
+      },
+      
+      execute = function ( arr ) {
+        if ( typeof arr === "function" ) {
+          arr.apply( this, Array.prototype.slice.call( arguments, 1 ));
+        }
+        else if ( Object.prototype.toString.apply(arr) === '[object Array]' ) {
+          var x = arr.length; 
+          while (x--) {
+            arr[x].apply( this, Array.prototype.slice.call( arguments, 1 ));
+          }
+        }
+      },
   
       // ---------------------
       // REQUEST (PRIVATE)
@@ -45,7 +65,7 @@ var cosm = (function() {
         if ( !settings.url ) { return; }
         settings.type = settings.type.toUpperCase();
             
-        if ( settings.type == "PUT" || settings.type == "POST" ) {
+        if ( settings.type === "PUT" || settings.type === "POST" ) {
           if ( !settings.data || typeof settings.data !== 'object' ) {
             return;
           }
@@ -53,7 +73,7 @@ var cosm = (function() {
             settings.data = JSON.stringify(settings.data);
           }
         }
-            
+
         $.ajax({
           url        : settings.url,
           type       : settings.type,
@@ -67,24 +87,18 @@ var cosm = (function() {
         .done(settings.done)
         .fail(settings.fail)
         .always(settings.always);
-    	},
-  
+      },
+
       // ---------------------
       // WEBSOCKET
       //
       
       ws = {
-        socket    : false,
-        callbacks : {}
+        socket      : false,
+        socketReady : false,
+        queue       : [],
+        resources   : []
       };
-    
-  // ON MESSAGE 
-  
-  ws.message   = function ( event, data, socket ) { 
-    if ( data.body && ws.callbacks[data.resource] ) {
-      ws.callbacks[data.resource](data.body);
-    }
-  };
   
   // CONNECT 
   
@@ -97,7 +111,7 @@ var cosm = (function() {
       ws.socket = new WebSocket("ws://api.cosm.com:8080/");
     
       ws.socket.onerror = function( e ) {
-        if ( ws.error ) { ws.error( e, this ) }
+        if ( ws.error ) { ws.error( e, this ); }
         ws.connect();
       };
     
@@ -107,14 +121,18 @@ var cosm = (function() {
       };
     
       ws.socket.onopen = function( e ) {
-        if ( callback ) { callback( this ); }
-        if ( ws.error ) { ws.open( e, this ); }
+        ws.socketReady = true;
+        if ( ws.error )         { ws.open( e, this ); }
+        if ( ws.queue.length )  { execute( ws.queue ); }
+        if ( callback )         { callback( this ); }
       };
     
       ws.socket.onmessage = function( e ) {
-        var data = e.data;
-        response = JSON.parse( data );
-        ws.message( e, response, this );
+        var data      = e.data,
+            response  = JSON.parse( data );
+        if ( response.body ) {
+          $('body').trigger( "cosm."+ response.resource, response.body );
+        }
       };
     }
   };
@@ -123,18 +141,23 @@ var cosm = (function() {
   
   ws.subscribe = function ( resource, callback ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"subscribe", "resource":"'+ resource +'"}';
-  
-    if ( !ws.callbacks[resource] ) { 
-      ws.callbacks[resource] = callback;
     
-      if ( !ws.socket ) {
-        ws.connect(function( socket ){
-          socket.send( request );
+    if ( !ws.resources[resource] ) {
+      ws.resources.push( resource );
+      
+      if ( !ws.socketReady ) {
+        ws.connect();
+        ws.queue.push(function() {
+          ws.socket.send( request ); 
         });
       }
       else {
         ws.socket.send( request );
-      }
+      }      
+    }
+    
+    if ( callback && typeof callback === "function" ) {
+      $( document ).on( "cosm."+ resource, callback );
     }
   };
   
@@ -143,12 +166,11 @@ var cosm = (function() {
   ws.unsubscribe = function ( resource ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}';
   
-    if ( ws.callbacks[resource] && ws.socket ) {
+    if ( ws.socket ) {
       ws.socket.send( request );
-      delete ws.callbacks[resource];
     }
   };
-    	
+  
   // disable caching
   $.ajaxSetup ({
     cache: false
@@ -160,7 +182,7 @@ var cosm = (function() {
   *
   */
 
-	public = {
+	methods = {
     endpoint : APIendpoint,
   
     // ---------------------
@@ -184,7 +206,7 @@ var cosm = (function() {
     //
     
     subscribe : function ( resource, callback ) {
-      ws.subscribe( resource,callback );
+      ws.subscribe( resource, callback );
     },
   
     // ---------------------
@@ -200,10 +222,11 @@ var cosm = (function() {
     //
     
     live : function ( selector, resource ) {
-      var callback = function ( data ) {
-            if ( data.current_value ) {
+      var callback = function ( event, data ) {
+            var response = event.current_value ? event : data;
+            if ( response.current_value ) {
               $( selector ).each(function() {
-                $( this ).html( data.current_value ).attr( 'data-cosmjs-resource', resource );
+                $( this ).html( response.current_value ).attr( 'data-cosm-resource', resource );
               });
             }
           };
@@ -219,7 +242,7 @@ var cosm = (function() {
     //
     
     stop : function ( selector ) {
-      ws.unsubscribe( $( selector ).first().attr( 'data-cosmjs-resource' ) );
+      ws.unsubscribe( $( selector ).first().attr( 'data-cosm-resource' ) );
     },
   
     // ---------------------
@@ -250,7 +273,7 @@ var cosm = (function() {
     
       // NEW 
       
-      new : function ( opt_data, opt_callback ) {
+      'new' : function ( opt_data, opt_callback ) {
         request({
           type    : "post",
           url     : APIendpoint +"feeds", 
@@ -261,7 +284,7 @@ var cosm = (function() {
     
       // DELETE 
       
-      delete : function ( opt_feed, opt_callback ) {      
+      'delete' : function ( opt_feed, opt_callback ) {      
         request({
           type    : "delete",
           url     : APIendpoint +"feeds/"+ opt_feed,
@@ -335,7 +358,7 @@ var cosm = (function() {
     
       // NEW
     
-      new : function ( opt_feed, opt_data, opt_callback ) {
+      'new' : function ( opt_feed, opt_data, opt_callback ) {
         request({
           type    : "post",
           url     : APIendpoint +"feeds/"+ opt_feed +"/datastreams", 
@@ -346,7 +369,7 @@ var cosm = (function() {
     
       // DELETE 
       
-      delete : function ( opt_feed, opt_datastream, opt_callback ) {
+      'delete' : function ( opt_feed, opt_datastream, opt_callback ) {
         request({
           type    : "delete",
           url     : APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream,
@@ -395,7 +418,7 @@ var cosm = (function() {
       
       live : function ( opt_element, opt_feed, opt_datastream ) {
         if ( opt_element && opt_feed && opt_datastream ) {
-          public.live( opt_element, "/feeds/"+ opt_feed +"/datastreams/"+ opt_datastream );
+          methods.live( opt_element, "/feeds/"+ opt_feed +"/datastreams/"+ opt_datastream );
         }
       },
     
@@ -403,7 +426,7 @@ var cosm = (function() {
       
       stop : function ( opt_element ) {
         if ( opt_element ) {
-          public.stop( opt_element );
+          methods.stop( opt_element );
         }
       }
     
@@ -439,7 +462,7 @@ var cosm = (function() {
     
       // NEW
     
-      new : function ( opt_feed, opt_datastream, opt_data, opt_callback ) {
+      'new' : function ( opt_feed, opt_datastream, opt_data, opt_callback ) {
         request({
           type    : "post",
           url     : APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream +"/datapoints", 
@@ -450,7 +473,7 @@ var cosm = (function() {
     
       // DELETE
     
-      delete : function ( opt_feed, opt_datastream, opt_timestamp, opt_callback ) {
+      'delete' : function ( opt_feed, opt_datastream, opt_timestamp, opt_callback ) {
         var req_options = {
           type   : "delete",
           always : opt_callback
@@ -483,12 +506,12 @@ var cosm = (function() {
 
   /*
   *
-  *   RETURN PUBLIC
+  *   RETURN METHODS
   *
   */
   
-	return public;
-})();
+	return methods;
+})( jQuery );
 
 /*
 *
@@ -497,11 +520,12 @@ var cosm = (function() {
 */
 
 (function( $ ){
+  "use strict";
   var resourcify = function ( options ) {
         if ( typeof options === 'object' ) {
           return "/feeds/"+ options.feed + (options.datastream ? "/datastreams/"+ options.datastream : "");
         }
-        else if ( typeof options === 'string' && options != "" ) {
+        else if ( typeof options === 'string' && options !== "" ) {
           return options;
         }
         else {
@@ -538,4 +562,20 @@ var cosm = (function() {
       $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
     }
   };
+  
+  $('[data-cosm]').each(function(){
+    var $this = $(this),
+        data = $this.data(),
+        dataArgs = [];
+    if ( data.cosm.indexOf(',') !== -1 ) {
+      dataArgs = data.cosm.replace(/ /g,"").split(',');
+      $this.cosm( dataArgs[0], (dataArgs.length === 3 ? "/feeds/"+ dataArgs[1] + "/datastreams/"+ dataArgs[2] : dataArgs[1] ));
+    }
+    else if ( data.cosmResource ) {
+      $this.cosm( data.cosm, data.cosmResource );
+    }
+    else if ( data.cosmFeed && data.cosmDatastream ) {
+      $this.cosm( data.cosm, "/feeds/"+ data.cosmFeed + "/datastreams/"+ data.cosmDatastream );
+    }
+  });
 })( jQuery );
