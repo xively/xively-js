@@ -13,7 +13,7 @@ var cosm = (function ( $ ) {
   *
   */
 	
-  var APIkey = "QiKJDoIHZt-7sxtavM1jRhS39B-SAKxFWHZIM0ZMSUV2ND0g",  // THIS SHOULD BE CHANGED WITH SETKEY()
+  var APIkey,                                         // THIS SHOULD BE CHANGED WITH SETKEY()
       APIendpoint = "http://api.cosm.com/v2/",
       methods,
   
@@ -51,6 +51,12 @@ var cosm = (function ( $ ) {
           }
         }
       },
+      
+      log = function ( msg ) {
+        if ( window.console && window.console.log ) {
+          window.console.log( msg );
+        }
+      },
   
       // ---------------------
       // REQUEST (PRIVATE)
@@ -61,6 +67,10 @@ var cosm = (function ( $ ) {
         var settings = merge({
               type      : 'get'
             }, options);
+        
+        if ( !APIkey ) { 
+          return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+        }
         
         if ( !settings.url ) { return; }
         settings.type = settings.type.toUpperCase();
@@ -141,6 +151,10 @@ var cosm = (function ( $ ) {
   
   ws.subscribe = function ( resource, callback ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"subscribe", "resource":"'+ resource +'"}';
+        
+    if ( !APIkey ) { 
+      return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+    }
     
     if ( !ws.resources[resource] ) {
       ws.resources.push( resource );
@@ -165,6 +179,10 @@ var cosm = (function ( $ ) {
   
   ws.unsubscribe = function ( resource ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}';
+        
+    if ( !APIkey ) { 
+      return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+    }
   
     if ( ws.socket ) {
       ws.socket.send( request );
@@ -562,20 +580,4 @@ var cosm = (function ( $ ) {
       $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
     }
   };
-  
-  $('[data-cosm]').each(function(){
-    var $this = $(this),
-        data = $this.data(),
-        dataArgs = [];
-    if ( data.cosm.indexOf(',') !== -1 ) {
-      dataArgs = data.cosm.replace(/ /g,"").split(',');
-      $this.cosm( dataArgs[0], (dataArgs.length === 3 ? "/feeds/"+ dataArgs[1] + "/datastreams/"+ dataArgs[2] : dataArgs[1] ));
-    }
-    else if ( data.cosmResource ) {
-      $this.cosm( data.cosm, data.cosmResource );
-    }
-    else if ( data.cosmFeed && data.cosmDatastream ) {
-      $this.cosm( data.cosm, "/feeds/"+ data.cosmFeed + "/datastreams/"+ data.cosmDatastream );
-    }
-  });
 })( jQuery );
