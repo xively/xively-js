@@ -91,7 +91,8 @@ var cosm = (function ( $ ) {
             "X-ApiKey" : APIkey
           },
           data       : settings.data,
-          dataType   : "json",
+          crossDomain: true,
+          dataType: 'jsonp',
           cache      : false
         })
         .done(settings.done)
@@ -249,7 +250,7 @@ var cosm = (function ( $ ) {
             }
           };
       request({
-        url    : APIendpoint + resource, 
+        url    : APIendpoint + resource.replace(/^\//,''), 
         always : callback
       });
       ws.subscribe( resource, callback );
