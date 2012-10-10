@@ -21,25 +21,6 @@ var cosm = (function ( $ ) {
       // HELPERS 
       //
       
-      serialize = function ( obj ) {
-        var str = [];
-        for( var p in obj ) {
-          if ( obj.hasOwnProperty( p ) ) {
-            str.push( p + "=" + obj[p] );
-          }
-        }
-        return str.join( "&" );
-      },
-      
-      merge = function ( obj1 , obj2 ) {
-        for( var i in obj2 ) {
-          if ( obj2.hasOwnProperty( i ) ) { 
-            obj1[i] = obj2[i];
-          }
-        }
-        return obj1;
-      },
-      
       execute = function ( arr ) {
         if ( typeof arr === "function" ) {
           arr.apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -64,7 +45,7 @@ var cosm = (function ( $ ) {
 
       request = function( options ) {
         
-        var settings = merge({
+        var settings = $.extend({
               type      : 'get'
             }, options);
         
@@ -85,15 +66,15 @@ var cosm = (function ( $ ) {
         }
 
         $.ajax({
-          url        : settings.url,
-          type       : settings.type,
-          headers    : {
+          url         : settings.url,
+          type        : settings.type,
+          headers     : {
             "X-ApiKey" : APIkey
           },
-          data       : settings.data,
-          crossDomain: true,
-          dataType: 'jsonp',
-          cache      : false
+          data        : settings.data,
+          crossDomain : true,
+          dataType    : 'json',
+          cache       : false
         })
         .done(settings.done)
         .fail(settings.fail)
@@ -133,7 +114,7 @@ var cosm = (function ( $ ) {
     
       ws.socket.onopen = function( e ) {
         ws.socketReady = true;
-        if ( ws.error )         { ws.open( e, this ); }
+        if ( ws.open )         { ws.open( e, this ); }
         if ( ws.queue.length )  { execute( ws.queue ); }
         if ( callback )         { callback( this ); }
       };
@@ -316,7 +297,7 @@ var cosm = (function ( $ ) {
       history : function ( opt_feed, opt_options, opt_callback ) {            
         request({
           url     : APIendpoint +"feeds/"+ opt_feed +".json",
-          data    : serialize( opt_options ),
+          data    : opt_options,
           always  : opt_callback
         });
       },
@@ -326,7 +307,7 @@ var cosm = (function ( $ ) {
       list : function ( opt_options, opt_callback ) {      
         request({
           url     : APIendpoint +"feeds",
-          data    : serialize( opt_options ),
+          data    : opt_options,
           always  : opt_callback
         });
       },
@@ -401,7 +382,7 @@ var cosm = (function ( $ ) {
       history : function ( opt_feed, opt_datastream, opt_options, opt_callback ) {            
         request({
           url     : APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream +".json",
-          data    : serialize( opt_options ),
+          data    : opt_options,
           always  : opt_callback
         });
       },
@@ -500,7 +481,7 @@ var cosm = (function ( $ ) {
         
         if ( typeof opt_timestamp === "object" ) {
           req_options.url  = APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream +"/datapoints";
-          req_options.data = serialize( opt_timestamp );
+          req_options.data = opt_timestamp;
         }
         else {
           req_options.url = APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream +"/datapoints/"+ opt_timestamp;
@@ -514,7 +495,7 @@ var cosm = (function ( $ ) {
       history : function ( opt_feed, opt_datastream, opt_options, opt_callback ) {            
         request({
           url     : APIendpoint +"feeds/"+ opt_feed +"/datastreams/"+ opt_datastream +".json",
-          data    : serialize( opt_options ),
+          data    : opt_options,
           always  : function ( data ) {
             opt_callback.call( this, data.datapoints );
           }
@@ -540,6 +521,7 @@ var cosm = (function ( $ ) {
 
 (function( $ ){
   "use strict";
+  
   var resourcify = function ( options ) {
         if ( typeof options === 'object' ) {
           return "/feeds/"+ options.feed + (options.datastream ? "/datastreams/"+ options.datastream : "");

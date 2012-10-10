@@ -1,0 +1,121 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>cosmjs - Cosm Javascript Library - Pete Correia</title>
+  <meta name="description" content="cosmjs - Cosm Javascript Library - Pete Correia">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="//use.typekit.net/tdh7myr.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <script type="text/javascript" src="js/modernizr.custom.js"></script>
+</head>
+<body>
+  <header class="app-header clearfix">    
+    <h1 class="app-logo"><a class="app-logo-link" href="/cosmjs/">cosm<span class="color-orange-light">js</span></a></h1>
+    <nav class="app-navigation">
+      <ul class="app-navigation-list clearfix">
+        <li class="app-navigation-item">
+          <a class="app-navigation-item-link" href="https://raw.github.com/cosm/cosm-js/master/cosmjs-1.0.0.min.js">Download</a>
+        </li>
+        <li class="app-navigation-item">
+          <a class="app-navigation-item-link" href="/cosmjs/docs/">Docs</a>
+        </li>
+        <li class="app-navigation-item">
+          <a class="app-navigation-item-link" href="/cosmjs/demo/">Demo</a>
+        </li>
+        <li class="app-navigation-item">
+          <a class="app-navigation-item-link" href="https://github.com/cosm/cosm-js/">Github</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <div role="main" class="app-content">
+    
+    <div class="claim">
+      <h2 class="big-ass-claim">All you need to interact with Cosm</h2>
+      <ul class="features unstyled">
+        <li><span class="element-spaced">lightweight</span>2.9kb gzipped</li>
+        <li><span class="element-spaced">complete</span>with all API methods</li>
+        <li><span class="element-spaced">extended</span>methods for ease of use</li>
+      </ul>
+    </div>
+    
+    <p class="call-to-action-wrapper text-centered">
+      <a class="button call-to-action" href="https://raw.github.com/cosm/cosm-js/master/cosmjs-1.0.0.min.js">Download</a>
+    </p>
+    
+    <h2 class="section-title">Include the file</h2>
+  
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Include after jQuery (required)
+&lt;script src=&quot;cosmjs-1.0.0.min.js&quot;&gt;&lt;/script&gt;
+</pre>
+
+    
+    <h2 class="section-title">Sample usage</h2>
+    
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Set your API key first
+cosm.setKey( YOUR_KEY_HERE );
+</pre>
+    
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Get feed content
+cosm.feed.get( &quot;504&quot;, function( data ) {
+  console.log( data.title ); // Logs the feed title
+});
+</pre>
+    
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Get realtime updates on a datastream
+cosm.datastream.subscribe( &quot;61916&quot;, &quot;sine60&quot;, function( event, data ) {
+  console.log( data.current_value ); // Logs value changes in realtime
+});
+</pre>
+
+    
+    <h2 class="section-title">jQuery Plugin</h2>
+    
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Set current value on elements
+$('.datastream-value').cosm('get', { feed: 61916, datastream: 'sine60' });
+</pre>
+<pre name="code" class="javascript:nocontrols:nogutter">
+// Set and update value in realtime
+$('.datastream-value').cosm('live', { feed: 61916, datastream: 'sawtooth60' });
+</pre>
+
+    
+    <h2 class="section-title">Quick Demo</h2>
+    
+    <ul class="demo-streams clearfix unstyled">
+      <li class="demo-stream">light <span class="stream-1"></span></li>
+      <li class="demo-stream">temperature <span class="stream-2"></span></li>
+    </ul>
+    
+    <small>Pro Tip: Get your CPU stats on Cosm with <a href="https://github.com/levent/CosmX">CosmX</a></small>
+    
+  </div>
+  <footer class="app-footer tk-bebas-neue">
+    This library is open source. if you think something is missing, contribute code or submit an issue on <a href="https://github.com/cosm/cosm-js/">github</a>
+  </footer>
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+  
+  <script defer src="js/cosmjs-1.0.0.js"></script>
+  <script defer src="js/script.js"></script>
+
+  <script>
+    var _gaq=[['_setAccount','UA-22323787-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+</body>
+</html
