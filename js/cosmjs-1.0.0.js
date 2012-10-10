@@ -1,7 +1,7 @@
 // cosmJS
-// version 1.0.0a
-// (c) 2012 pete correia [contact@petecorreia.com]
-// http://petecorreia.com/cosmjs/
+// version 1.0.0
+// (c) 2012 Cosm Ltd, a LogMeIn company [pete.correia@cosm.com]
+// http://cosm.github.com/cosm-js/
 // released under the MIT license
 
 var cosm = (function ( $ ) {

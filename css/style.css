@@ -310,6 +310,11 @@ a.button:visited {
   color: #D3643B;
 }
 
+.copyright {
+  margin-top: -5px;
+  font-size: 20px;
+}
+
 .docs-section {
   border-top: 3px solid #f47850;
   margin-top: 40px;
