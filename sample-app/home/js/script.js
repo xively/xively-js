@@ -55,7 +55,11 @@
         cosm.datastream.subscribe( feedID, "volume", function ( event , data ) {
           ui.fakeLoad();
           ui.volume.auto( parseInt(data["current_value"]) );
-        });        
+        });
+
+        // set play
+        document.getElementById("js-audio").play();
+        $("body").addClass("music-on");
       }      
 
       // TEMPERATURE
