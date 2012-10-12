@@ -95,5 +95,19 @@ var ui      = {};
   $(".js-volume-up").on("click", handleVolume);
   $(".js-volume-down").on("click", handleVolume);
 
+  var handleTemp = function ( event ) {
+    var $temperature  = $(".js-temperature"),
+        increase      = ( $(event.target).hasClass("js-temp-up") ) ? true : false,
+        curVal        = parseInt($temperature.html()),
+        targetVal     = ( increase ) ? curVal + 1 : curVal - 1 ;
+
+    event.preventDefault();
+    if ( $(".app-state").hasClass("loading") || curVal == targetVal ) { return false; }
+
+    $temperature.html(targetVal).trigger("custom-change", targetVal);
+  }
+
+  $(".js-temp-up").on("click", handleTemp);
+  $(".js-temp-down").on("click", handleTemp);
 
 })( jQuery );

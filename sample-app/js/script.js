@@ -104,12 +104,22 @@
       // TEMPERATURE
 
       if ( datastream.id === "temperature" ) {
-        $(".js-temperature").html( datastream["current_value"] );
+        var $temperature = $(".js-temperature");
+
+        $temperature.html( datastream["current_value"] );
+
+        // save changes
+        $temperature.on("custom-change", function( event, val ) {
+          $(".app-state").addClass("loading").fadeIn(200);
+          cosm.datastream.update(feedID, "temperature", { "current_value": val }, function(){
+            $(".app-state").removeClass("loading").fadeOut(200);
+          });
+        });
 
         // make it live
         cosm.datastream.subscribe( feedID, "temperature", function ( event , data ) {
           ui.fakeLoad();
-          $(".js-temperature").html( data["current_value"] );
+          $temperature.html( data["current_value"] );
         });
       }
     }
