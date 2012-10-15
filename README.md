@@ -2,4 +2,4 @@
 
 ## Cosm Javascript Library
 
-Documentation at [petecorreia.com/cosmjs](http://petecorreia.com/cosmjs/)
+Documentation at [cosm.github.com/cosm-js/](http://cosm.github.com/cosm-js/)
