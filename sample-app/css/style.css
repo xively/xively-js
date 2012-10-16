@@ -429,6 +429,10 @@ a:visited {
   font-family: "helvetica neue", helvetica, arial, sans-serif;
 }
 
+.view-feed a {
+  display: block;
+}
+
 .view-feed a,
 .short-url a {
   color: #403B33;

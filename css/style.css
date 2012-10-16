@@ -480,8 +480,44 @@ a.button:visited {
   color: #000;
 }
 
+.text-long {
+  display: none;
+  speak: none;
+}
+
 
 @media only screen and (min-width: 540px) {
+
+  .text-short {
+    display: none;
+    speak: none;
+  }
+
+  .text-long {
+    display: inline;
+    speak: normal;
+  }
+
+  .app-logo {
+    float: left;
+    margin-right: 20px;
+    font-size: 140px;
+    text-align: left;
+  }
+
+  .app-navigation {
+    margin: 20px 0 0;
+    float: left;
+    text-align: left;
+  }
+
+  .app-navigation-item {
+    display: block;
+  }
+
+  .app-navigation-item + .app-navigation-item {
+    margin-left: 0;
+  }
 
   .big-ass-claim {
     margin-top: 60px;
