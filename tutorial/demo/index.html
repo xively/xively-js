@@ -47,8 +47,6 @@
         // WARNING: This code is only executed when we get a response back from Cosm, it will likely execute after the rest your script
         // NOTE: The variable "datastream" will contain all the datastream information as an object, the structure can be found at: http://cosm.com/docs/v2/datastream/show.html#examples
 
-        console.log(datastream);
-
         // Display the current value from the datastream
         $(selector).html( datastream["current_value"] );
 
