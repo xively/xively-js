@@ -22,7 +22,7 @@
 
   <h2><small>Live datastream value</small> <span id="myelement"></span></h2>
 
-  <small><a href="http://cosm.github.com/cosm-js/">Powered by CosmJS</a></small>
+  <small><a href="/cosm-js/tutorial/">&larr; Back to Tutorial</a></small>
 
   <!-- Include jQuery -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -32,7 +32,7 @@
   <script>
 
     // Make sure the document is ready to be handled
-    jQuery(document).ready(function($) {
+    $(document).ready(function($) {
 
       // Set the Cosm API key (https://cosm.com/users/YOUR_USERNAME/keys)
       cosm.setKey( "yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g" );
@@ -40,7 +40,7 @@
       // Replace with your own values
       var feedID        = 61916,          // Feed ID (the last number on the URL on the feed page on Cosm)
           datastreamID  = "sine60";       // Datastream ID
-          selector      = "#myelement";   // Any valid jquery selector
+          selector      = "#myelement";   // Your element on the page - takes any valid jQuery selector
 
       // Get datastream data from Cosm
       cosm.datastream.get (feedID, datastreamID, function ( datastream ) {

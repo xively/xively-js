@@ -60,7 +60,7 @@ body {
   margin: 0 auto;
   color: #403B33;
   background-color: white;
-  font-family: georgia, serif;
+  font-family: "Helvetica Neue", helvetica, arial, serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -752,3 +752,9 @@ a.button:visited {
 .dp-highlighter .string { color: blue; background-color: inherit; }
 .dp-highlighter .keyword { color: #069; font-weight: bold; background-color: inherit; }
 .dp-highlighter .preprocessor { color: gray; background-color: inherit; }
+
+.tutorial-section .dp-highlighter {
+  padding: 1em .5em;
+  border: 3px solid #ebebeb;
+  font-size: 12px;
+}
