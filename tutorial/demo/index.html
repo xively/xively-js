@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Simple Tutorial - CosmJS</title>
+  <meta name="description" content="Simple Tutorial - CosmJS">
+  <style type="text/css">
+    body {
+      padding: 0;
+      margin: 2em;
+      color: #222;
+      text-shadow: 0 1px 0 white;
+      background-color: #ebebeb;
+      font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>CosmJS Tutorial</h1>
+
+  <h2><small>Live datastream value</small> <span id="myelement"></span></h2>
+
+  <small><a href="http://cosm.github.com/cosm-js/">Powered by CosmJS</a></small>
+
+  <!-- Include jQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <!-- Include CosmJS -->
+  <script src="http://d23cj0cdvyoxg0.cloudfront.net/cosmjs-1.0.0.min.js"></script>
+  <!-- Our Script (should be included in a separate file, only inline for demo purposes) -->
+  <script>
+
+    // Make sure the document is ready to be handled
+    jQuery(document).ready(function($) {
+
+      // Set the Cosm API key (https://cosm.com/users/YOUR_USERNAME/keys)
+      cosm.setKey( "yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g" );
+
+      // Replace with your own values
+      var feedID        = 61916,          // Feed ID (the last number on the URL on the feed page on Cosm)
+          datastreamID  = "sine60";       // Datastream ID
+          selector      = "#myelement";   // Any valid jquery selector
+
+      // Get datastream data from Cosm
+      cosm.datastream.get (feedID, datastreamID, function ( datastream ) {
+        // WARNING: This code is only executed when we get a response back from Cosm, it will likely execute after the rest your script
+        // NOTE: The variable "datastream" will contain all the datastream information as an object, the structure can be found at: http://cosm.com/docs/v2/datastream/show.html#examples
+
+        console.log(datastream);
+
+        // Display the current value from the datastream
+        $(selector).html( datastream["current_value"] );
+
+        // Getting realtime! The function associated with the subscribe method will be executed every time there is an update to the datastream
+        cosm.datastream.subscribe( feedID, datastreamID, function ( event , datastream_updated ) {
+          // Display the current value from the updated datastream
+          $(selector).html( datastream_updated["current_value"] );
+        });
+
+      });
+
+      // WARNING: Code here will continue executing while we get the datastream data from Cosm, use the function associated with datastream.get to work with the data, when the request is complete
+    });
+  </script>
+</body>
+</html
