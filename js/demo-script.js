@@ -38,7 +38,7 @@
     
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.update("61021", payload, function(data) {
+    cosm.feed.update("89825", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -86,13 +86,13 @@
       
   $('#history-perform').on('click', function(){
     var options = {
-          start: "2012-04-20T07:00:00Z",
-          end: "2012-04-20T12:00:00Z"
+          start: "2012-11-20T07:00:00Z",
+          end: "2012-11-20T08:00:00Z"
         };
 
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.history("61021", options, function(data){
+    cosm.feed.history("61916", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -161,14 +161,14 @@
     var value   = $('#updateDatastream-value').val(),
         payload = {
           "current_value" : value,
-          "id" : "bycosm"
+          "id" : "test2"
         };
     
     if (value == '') { return false; }
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datastream.update("61021", "bycosm", payload, function(data) {
+    cosm.datastream.update("89825", "bycosm", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -216,13 +216,13 @@
       
   $('#historyDatastream-perform').on('click', function(){
     var options = {
-          start: "2012-04-20T07:00:00Z",
-          end: "2012-04-20T12:00:00Z"
+          start: "2012-11-20T07:00:00Z",
+          end: "2012-11-20T08:00:00Z"
         };
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datastream.history("61021", "bycosm", options, function(data){
+    cosm.datastream.history("61916", "random5", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -291,14 +291,14 @@
   //
       
   $('#newDatapoint-perform').on('click', function(){
-    var feed        = "61021",
-        datastream  = "bycosm",
+    var feed        = "89825",
+        datastream  = "test",
         payload     = {
                         "datapoints" : [
-                          {"at":"2012-04-20T08:00:00Z","value":"094"},
-                          {"at":"2012-04-20T09:00:00Z","value":"195"},
-                          {"at":"2012-04-20T10:00:00Z","value":"296"},
-                          {"at":"2012-04-20T11:00:00Z","value":"397"}
+                          {"at":"2012-12-04T08:00:00Z","value":"094"},
+                          {"at":"2012-12-04T09:00:00Z","value":"195"},
+                          {"at":"2012-12-04T10:00:00Z","value":"296"},
+                          {"at":"2012-12-04T11:00:00Z","value":"397"}
                         ]
                       };
 
@@ -327,13 +327,13 @@
       
   $('#historyDatapoint-perform').on('click', function(){
     var options = {
-          start: "2012-04-20T07:00:00Z",
-          end: "2012-04-20T12:00:00Z"
+          start: "2012-12-04T07:00:00Z",
+          end: "2012-12-04T12:00:00Z"
         };
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datapoint.history("61021", "bycosm", options, function(data){
+    cosm.datapoint.history("61916", "random5", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });

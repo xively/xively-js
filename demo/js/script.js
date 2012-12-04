@@ -34,7 +34,7 @@
     
     if (value == '') { return false; }
     
-    cosm.feed.update("61021", payload, function(data) {
+    cosm.feed.update("89825", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -78,11 +78,11 @@
       
   $('#history-perform').on('click', function(){
     var options = {
-          start: "2012-04-20T07:00:00Z",
-          end: "2012-04-20T12:00:00Z"
+          start: "2012-11-20T07:00:00Z",
+          end: "2012-11-20T12:00:00Z"
         };
     
-    cosm.feed.history("61021", options, function(data){
+    cosm.feed.history("61916", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -152,7 +152,7 @@
     
     if (value == '') { return false; }
     
-    cosm.datastream.update("61021", "bycosm", payload, function(data) {
+    cosm.datastream.update("89825", "bycosm", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -200,7 +200,7 @@
           end: "2012-04-20T12:00:00Z"
         };
     
-    cosm.datastream.history("61021", "bycosm", options, function(data){
+    cosm.datastream.history("89825", "bycosm", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
@@ -263,7 +263,7 @@
   //
       
   $('#newDatapoint-perform').on('click', function(){
-    var feed        = "61021",
+    var feed        = "89825",
         datastream  = "bycosm",
         payload     = {
                         "datapoints" : [
@@ -299,7 +299,7 @@
           end: "2012-04-20T12:00:00Z"
         };
     
-    cosm.datapoint.history("61021", "bycosm", options, function(data){
+    cosm.datapoint.history("89825", "bycosm", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
