@@ -1,4 +1,4 @@
-# cosmjs 1.0.0a
+# cosmjs 1.0.1
 
 ## Cosm Javascript Library
 
