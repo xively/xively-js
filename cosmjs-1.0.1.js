@@ -1,5 +1,5 @@
 // cosmJS
-// version 1.0.0
+// version 1.0.1
 // (c) 2012 Cosm Ltd, a LogMeIn company [pete.correia@cosm.com]
 // http://cosm.github.com/cosm-js/
 // released under the MIT license
@@ -16,6 +16,7 @@ var cosm = (function ( $ ) {
   var APIkey,                                         // THIS SHOULD BE CHANGED WITH SETKEY()
       APIendpoint = "http://api.cosm.com/v2/",
       methods,
+      cacheRequest = false,
   
       // ---------------------
       // HELPERS 
@@ -74,7 +75,7 @@ var cosm = (function ( $ ) {
           data        : settings.data,
           crossDomain : true,
           dataType    : 'json',
-          cache       : false
+          cache       : cacheRequest
         })
         .done(settings.done)
         .fail(settings.fail)
@@ -173,7 +174,7 @@ var cosm = (function ( $ ) {
   
   // disable caching
   $.ajaxSetup ({
-    cache: false
+    cache: cacheRequest
   });
 
   /*
@@ -184,7 +185,29 @@ var cosm = (function ( $ ) {
 
 	methods = {
     endpoint : APIendpoint,
-  
+
+    // ---------------------
+    // SET API ENDPOINT
+    //
+
+    setEndpoint : function(endpoint) {
+      APIendpoint = endpoint;
+    },
+
+    // ---------------------
+    // SET CACHE
+    //
+
+    setCache : function(enabled) {
+      if (enabled !== cacheRequest) {
+        cacheRequest = enabled;
+
+        $.ajaxSetup ({
+          cache: cacheRequest
+        });
+      }
+    },
+
     // ---------------------
     // SET API KEY 
     //
