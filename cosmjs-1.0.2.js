@@ -1,6 +1,6 @@
 // cosmJS
-// version 1.0.1
-// (c) 2012 Cosm Ltd, a LogMeIn company [pete.correia@cosm.com]
+// version 1.0.2
+// (c) 2013 Cosm Ltd, a LogMeIn company [pete.correia@cosm.com]
 // http://cosm.github.com/cosm-js/
 // released under the MIT license
 
@@ -15,9 +15,10 @@ var cosm = (function ( $ ) {
 	
   var APIkey,                                         // THIS SHOULD BE CHANGED WITH SETKEY()
       APIendpoint = "http://api.cosm.com/v2/",
+      WSendpoint = "ws://api.cosm.com:8080/",
       methods,
       cacheRequest = false,
-  
+
       // ---------------------
       // HELPERS 
       //
@@ -101,7 +102,7 @@ var cosm = (function ( $ ) {
     } 
     
     if ( !ws.socket && window.WebSocket ) { 
-      ws.socket = new WebSocket("ws://api.cosm.com:8080/");
+      ws.socket = new WebSocket(WSendpoint);
     
       ws.socket.onerror = function( e ) {
         if ( ws.error ) { ws.error( e, this ); }
@@ -192,6 +193,14 @@ var cosm = (function ( $ ) {
 
     setEndpoint : function(endpoint) {
       APIendpoint = endpoint;
+    },
+
+    // ---------------------
+    // SET WS ENDPOINT
+    //
+
+    setWSEndpoint : function(endpoint) {
+      WSendpoint = endpoint;
     },
 
     // ---------------------
