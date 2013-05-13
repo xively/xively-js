@@ -1,5 +1,5 @@
-# cosmjs 1.0.2
+# xivelyjs 1.0.3
 
-## Cosm Javascript Library
+## Xively Javascript Library
 
-Documentation at [cosm.github.com/cosm-js/](http://cosm.github.com/cosm-js/)
+Documentation at [xively.github.com/xively-js/](http://xively.github.com/xively-js/)
