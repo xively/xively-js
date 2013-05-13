@@ -1,5 +1,5 @@
 // xivelyJS
-// version 1.0.2
+// version 1.0.3
 // (c) 2013 Xively Ltd, a LogMeIn company [pete.correia@xively.com]
 // http://xively.github.com/xively-js/
 // released under the MIT license
