@@ -4,22 +4,22 @@
   // SET KEY
   //
   
-  cosm.setKey("yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g");
+  xively.setKey("yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g");
   
   //
-  // cosm.feed.get()
+  // xively.feed.get()
   //
       
   $('#get-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.get($('#get-feed').val(), function(data){
+    xively.feed.get($('#get-feed').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.update()
+  // xively.feed.update()
   //
       
   $('#update-perform').on('click', function(){
@@ -29,7 +29,7 @@
           "datastreams": [
             {
               "current_value" : value,
-              "id" : "bycosm"       
+              "id" : "byxively"       
             }
           ]
         };
@@ -38,13 +38,13 @@
     
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.update("89825", payload, function(data) {
+    xively.feed.update("89825", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.new()
+  // xively.feed.new()
   //
       
   $('#new-perform').on('click', function(){
@@ -63,25 +63,25 @@
     
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.new(payload, function(data) {
+    xively.feed.new(payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.delete()
+  // xively.feed.delete()
   //
       
   $('#delete-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.delete($('#delete-feed').val(), function(data){
+    xively.feed.delete($('#delete-feed').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.history()
+  // xively.feed.history()
   //
       
   $('#history-perform').on('click', function(){
@@ -92,13 +92,13 @@
 
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.history("61916", options, function(data){
+    xively.feed.history("61916", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.list()
+  // xively.feed.list()
   //
       
   $('#list-perform').on('click', function(){
@@ -111,39 +111,39 @@
     
     $(".showcase").addClass("showcase-open");
 
-    cosm.feed.list(options, function(data) {
+    xively.feed.list(options, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.feed.subscribe()
+  // xively.feed.subscribe()
   //
       
   $('#subscribe-perform').on('click', function(){
-    cosm.subscribe("/feeds/" + $('#subscribe-feed').val(), function(event, data){
+    xively.subscribe("/feeds/" + $('#subscribe-feed').val(), function(event, data){
       console.log("socket callback for feed "+ data.id, data);
     });
   });
   
   //
-  // cosm.feed.unsubscribe()
+  // xively.feed.unsubscribe()
   //
       
   $('#unsubscribe-perform').on('click', function(){
-    cosm.unsubscribe("/feeds/" +$('#unsubscribe-feed').val(), function(event, data){
+    xively.unsubscribe("/feeds/" +$('#unsubscribe-feed').val(), function(event, data){
       console.log("Unsubscribing feed "+ data.id, data);
     });
   });
   
   //
-  // cosm.datastream.get()
+  // xively.datastream.get()
   //
       
   $('#getDatastream-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datastream.get($('#getDatastream-feed').val(), $('#getDatastream-datastream').val(), function(data){
+    xively.datastream.get($('#getDatastream-feed').val(), $('#getDatastream-datastream').val(), function(data){
       if (data) {
         $('#showcase').html(JSON.stringify(data, null, ' '));
       }
@@ -154,7 +154,7 @@
   });
   
   //
-  // cosm.datastream.update()
+  // xively.datastream.update()
   //
       
   $('#updateDatastream-perform').on('click', function(){
@@ -168,13 +168,13 @@
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datastream.update("89825", "bycosm", payload, function(data) {
+    xively.datastream.update("89825", "byxively", payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datastream.new()
+  // xively.datastream.new()
   //
       
   $('#newDatastream-perform').on('click', function(){
@@ -193,25 +193,25 @@
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datastream.new(feed, payload, function(data) {
+    xively.datastream.new(feed, payload, function(data) {
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datastream.delete()
+  // xively.datastream.delete()
   //
       
   $('#deleteDatastream-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datastream.delete($('#deleteDatastream-feed').val(), $('#deleteDatastream-datastream').val(), function(data){
+    xively.datastream.delete($('#deleteDatastream-feed').val(), $('#deleteDatastream-datastream').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datastream.history()
+  // xively.datastream.history()
   //
       
   $('#historyDatastream-perform').on('click', function(){
@@ -222,61 +222,61 @@
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datastream.history("61916", "random5", options, function(data){
+    xively.datastream.history("61916", "random5", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datastream.list()
+  // xively.datastream.list()
   //
       
   $('#listDatastream-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datastream.list($('#listDatastream-feed').val(), function(data){
+    xively.datastream.list($('#listDatastream-feed').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datastream.subscribe()
+  // xively.datastream.subscribe()
   //
       
   $('#subscribeDatastream-perform').on('click', function(){
-    cosm.datastream.subscribe($('#subscribeDatastream-feed').val(), $('#subscribeDatastream-datastream').val(), function(event, data){
+    xively.datastream.subscribe($('#subscribeDatastream-feed').val(), $('#subscribeDatastream-datastream').val(), function(event, data){
       console.log("socket callback for datastream "+ data.id, data);
     });
   });
   
   //
-  // cosm.datastream.unsubscribe()
+  // xively.datastream.unsubscribe()
   //
       
   $('#unsubscribeDatastream-perform').on('click', function(){
-    cosm.datastream.unsubscribe($('#unsubscribeDatastream-feed').val(), $('#unsubscribeDatastream-datastream').val());
+    xively.datastream.unsubscribe($('#unsubscribeDatastream-feed').val(), $('#unsubscribeDatastream-datastream').val());
   });
   
   //
-  // cosm.datapoint.get()
+  // xively.datapoint.get()
   //
       
   $('#getDatapoint-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datapoint.get($('#getDatapoint-feed').val(), $('#getDatapoint-datastream').val(), $('#getDatapoint-timestamp').val(), function(data){
+    xively.datapoint.get($('#getDatapoint-feed').val(), $('#getDatapoint-datastream').val(), $('#getDatapoint-timestamp').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datapoint.update()
+  // xively.datapoint.update()
   //
       
   $('#putDatapoint-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datapoint.update(
+    xively.datapoint.update(
       $('#putDatapoint-feed').val(), 
       $('#putDatapoint-datastream').val(), 
       $('#putDatapoint-timestamp').val(), 
@@ -287,7 +287,7 @@
   });
   
   //
-  // cosm.datapoint.new()
+  // xively.datapoint.new()
   //
       
   $('#newDatapoint-perform').on('click', function(){
@@ -304,25 +304,25 @@
 
     $(".showcase").addClass("showcase-open");
 
-    cosm.datapoint.new(feed, datastream, payload, function(data){
+    xively.datapoint.new(feed, datastream, payload, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datapoint.delete()
+  // xively.datapoint.delete()
   //
       
   $('#deleteDatapoint-perform').on('click', function(){
     $(".showcase").addClass("showcase-open");
 
-    cosm.datapoint.delete($('#deleteDatapoint-feed').val(), $('#deleteDatapoint-datastream').val(), $('#deleteDatapoint-timestamp').val(), function(data){
+    xively.datapoint.delete($('#deleteDatapoint-feed').val(), $('#deleteDatapoint-datastream').val(), $('#deleteDatapoint-timestamp').val(), function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });
   
   //
-  // cosm.datapoint.history()
+  // xively.datapoint.history()
   //
       
   $('#historyDatapoint-perform').on('click', function(){
@@ -333,7 +333,7 @@
 
     $(".showcase").addClass("showcase-open");
     
-    cosm.datapoint.history("61916", "random5", options, function(data){
+    xively.datapoint.history("61916", "random5", options, function(data){
       $('#showcase').html(JSON.stringify(data, null, ' '));
     });
   });

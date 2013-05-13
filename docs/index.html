@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Documentation - Cosm Javascript Library - Pete Correia</title>
-  <meta name="description" content="Documentation - Cosm Javascript Library - Pete Correia">
+  <title>Documentation - Xively Javascript Library - Pete Correia</title>
+  <meta name="description" content="Documentation - Xively Javascript Library - Pete Correia">
   <meta name="viewport" content="width=device-width">
-  <link rel="shortcut icon" href="/cosm-js/favicon.ico">
+  <link rel="shortcut icon" href="/xively-js/favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
   <script type="text/javascript" src="//use.typekit.net/tdh7myr.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -17,20 +17,20 @@
 </head>
 <body>
   <header class="app-header clearfix">    
-    <h1 class="app-logo"><a class="app-logo-link" href="/cosm-js/">cosm<span class="color-orange-light">js</span></a></h1>
+    <h1 class="app-logo"><a class="app-logo-link" href="/xively-js/">xively<span class="color-orange-light">js</span></a></h1>
     <nav class="app-navigation">
       <ul class="app-navigation-list clearfix">
         <li class="app-navigation-item active">
-          <a class="app-navigation-item-link" href="/cosm-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/tutorial/">Tutorial</a>
+          <a class="app-navigation-item-link" href="/xively-js/tutorial/">Tutorial</a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/demo/">Demo</a>
+          <a class="app-navigation-item-link" href="/xively-js/demo/">Demo</a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/sample-app/">Sample<span class="text-long"> App</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/sample-app/">Sample<span class="text-long"> App</span></a>
         </li>
       </ul>
     </nav>
@@ -41,86 +41,86 @@
     
     <section class="docs-section">
       <h2 class="docs-section-title ">API Key</h2>
-      <h2 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.setKey (<span class="docs-method-arguments">newKey</span>)</h2>
+      <h2 class="docs-method"><span class="docs-method-main-namespace">xively</span>.setKey (<span class="docs-method-arguments">newKey</span>)</h2>
       <div class="docs-info">
         <strong class="color-orange-light">!!! Set the key before using any of the methods and make sure your key works.</strong>
-        <p>As you might know, Cosm requires an API Key to interface with the service. Just click Keys on your user menu to create or use an existing key and use the .setKey method to set the key before using any other methods. This will make sure that you can work your feeds as you intend.</p>
+        <p>As you might know, Xively requires an API Key to interface with the service. Just click Keys on your user menu to create or use an existing key and use the .setKey method to set the key before using any other methods. This will make sure that you can work your feeds as you intend.</p>
       </div>
     </section>
     
     <section class="docs-section" id="view-feeds">
       <h2 class="docs-section-title ">Feeds</h2>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.get (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.update (<span class="docs-method-arguments">feedID, data{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.get (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.update (<span class="docs-method-arguments">feedID, data{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://cosm.com/docs/v2/feed/update.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/docs/v2/feed/update.html#examples">this json structure</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.new (<span class="docs-method-arguments">data{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.new (<span class="docs-method-arguments">data{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://cosm.com/docs/v2/feed/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/docs/v2/feed/create.html#examples">this json structure</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.delete (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.history (<span class="docs-method-arguments">feedID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.delete (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.history (<span class="docs-method-arguments">feedID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://cosm.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.list (<span class="docs-method-arguments">options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.list (<span class="docs-method-arguments">options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://cosm.com/docs/v2/feed/list.html">specified here</a>
+        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/feed/list.html">specified here</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.subscribe (<span class="docs-method-arguments">feedID, callback(event, data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.unsubscribe (<span class="docs-method-arguments">feedID</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.subscribe (<span class="docs-method-arguments">feedID, callback(event, data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.unsubscribe (<span class="docs-method-arguments">feedID</span>)</h3>
     </section>
     
     <section class="docs-section" id="view-datastreams">
       <h2 class="docs-section-title ">Datastreams</h2>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.get (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.update (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.get (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.update (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://cosm.com/docs/v2/datastream/update.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/docs/v2/datastream/update.html#examples">this json structure</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.new (<span class="docs-method-arguments">feedID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.new (<span class="docs-method-arguments">feedID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://cosm.com/docs/v2/datastream/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/docs/v2/datastream/create.html#examples">this json structure</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.delete (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.delete (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://cosm.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.list (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.subscribe (<span class="docs-method-arguments">feedID, datastreamID, callback(event, data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.unsubscribe (<span class="docs-method-arguments">feedID, datastreamID</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.live (<span class="docs-method-arguments">CSS selector, feedID, datastreamID</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.stop (<span class="docs-method-arguments">CSS selector</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.list (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.subscribe (<span class="docs-method-arguments">feedID, datastreamID, callback(event, data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.unsubscribe (<span class="docs-method-arguments">feedID, datastreamID</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.live (<span class="docs-method-arguments">CSS selector, feedID, datastreamID</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.stop (<span class="docs-method-arguments">CSS selector</span>)</h3>
     </section>
     
     <section class="docs-section" id="view-datapoints">
       <h2 class="docs-section-title ">Datapoints</h2>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.get (<span class="docs-method-arguments">feedID, datastreamID, timestamp, callback (data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.update (<span class="docs-method-arguments">feedID, datastreamID, timestamp, value, callback (data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.new (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.get (<span class="docs-method-arguments">feedID, datastreamID, timestamp, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.update (<span class="docs-method-arguments">feedID, datastreamID, timestamp, value, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.new (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://cosm.com/docs/v2/datapoint/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/docs/v2/datapoint/create.html#examples">this json structure</a>
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.delete (<span class="docs-method-arguments">feedID, datastreamID, timestamp or options{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.delete (<span class="docs-method-arguments">feedID, datastreamID, timestamp or options{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        If you want to delete multiple datapoints, pass an object instead of a timestamp with <a href="http://cosm.com/docs/v2/datapoint/delete_bulk.html">keys specified here</a>.
+        If you want to delete multiple datapoints, pass an object instead of a timestamp with <a href="http://xively.com/docs/v2/datapoint/delete_bulk.html">keys specified here</a>.
       </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://cosm.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
       </p>
     </section>
     
     <section class="docs-section">
       <h2 class="docs-section-title ">Request</h2>
-      <h2 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.request (<span class="docs-method-arguments">options{}, callback (data)</span>)</h2>
+      <h2 class="docs-method"><span class="docs-method-main-namespace">xively</span>.request (<span class="docs-method-arguments">options{}, callback (data)</span>)</h2>
       <div class="docs-info">
         <strong>options{}</strong> - Object which can take the following keys
         <ul>
           <li><strong>type:</strong> [string] example: "get"</li>
-          <li><strong>url:</strong> [string] example: "http://api.cosm.com/v2/feeds/504.json"</li>
+          <li><strong>url:</strong> [string] example: "http://api.xively.com/v2/feeds/504.json"</li>
           <li><strong>done:</strong> [function] Callback for successful response, receives JSON response as only argument</li>
           <li><strong>fail:</strong> [function] Callback for failed response, receives JSON response as only argument</li>
           <li><strong>always:</strong> [function] Callback for any response, receives JSON response as only argument</li>
@@ -131,18 +131,18 @@
     
     <section class="docs-section" id="view-web-sockets">
       <h2 class="docs-section-title ">Socket Server (beta)</h2>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.subscribe (<span class="docs-method-arguments">resource, callback(event, data)</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.unsubscribe (<span class="docs-method-arguments">resource</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.live (<span class="docs-method-arguments">CSS selector, resource</span>)</h3>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.stop (<span class="docs-method-arguments">CSS selector</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.subscribe (<span class="docs-method-arguments">resource, callback(event, data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.unsubscribe (<span class="docs-method-arguments">resource</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.live (<span class="docs-method-arguments">CSS selector, resource</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.stop (<span class="docs-method-arguments">CSS selector</span>)</h3>
       <p class="docs-info">
-        Subscribe to the socket server (beta) via <strong>WebSocket</strong>. Info on the resource argument is <a href="http://cosm.com/docs/beta/socket_server/#resource">here</a>.
+        Subscribe to the socket server (beta) via <strong>WebSocket</strong>. Info on the resource argument is <a href="http://xively.com/docs/beta/socket_server/#resource">here</a>.
       </p>
     </section>
     
     <section class="docs-section">
       <h2 class="docs-section-title ">jQuery Plugin</h2>
-      <h3 class="docs-method">$(selector)<span class="docs-method-main-namespace">.cosm</span> (<span class="docs-method-arguments">method, options</span>)</h3>
+      <h3 class="docs-method">$(selector)<span class="docs-method-main-namespace">.xively</span> (<span class="docs-method-arguments">method, options</span>)</h3>
       <div class="docs-info">
         <strong>method</strong> - String
         <ul>
@@ -159,14 +159,14 @@
     
   </div>
   <footer class="app-footer tk-bebas-neue">
-    CosmJS is open source. Contribute code or submit an issue on <a href="https://github.com/cosm/cosm-js/">github</a>
-    <p class="copyright">&copy; 2012 <a href="https://cosm.com">Cosm</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
+    XivelyJS is open source. Contribute code or submit an issue on <a href="https://github.com/xively/xively-js/">github</a>
+    <p class="copyright">&copy; 2012 <a href="https://xively.com">Xively</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
   </footer>
   
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   
-  <script defer src="../js/cosmjs-1.0.0.min.js"></script>
+  <script defer src="../js/xivelyjs-1.0.0.min.js"></script>
   <script defer src="../js/script.js"></script>
 
   <script>

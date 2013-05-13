@@ -5,12 +5,12 @@
 
   // SET API KEY
   
-  cosm.setKey( "FzZOVUxKRPl_Tvvtr1z77b8gOVCSAKxlTnlwSzQrZ3U4MD0g" ); // do not use this one, create your own at cosm.com
+  xively.setKey( "FzZOVUxKRPl_Tvvtr1z77b8gOVCSAKxlTnlwSzQrZ3U4MD0g" ); // do not use this one, create your own at xively.com
 
   // get all feed data in one shot
 
-  cosm.feed.get (feedID, function (data) {
-    // this code is executed when we get data back from Cosm
+  xively.feed.get (feedID, function (data) {
+    // this code is executed when we get data back from Xively
 
     var feed = data,
         datastream,
@@ -33,19 +33,19 @@
             $(".app-state").addClass("loading").fadeIn(200);
 
             if ( this.checked ) {
-              cosm.datastream.update(feedID, datastreamID, { "current_value": 1 }, function(){
+              xively.datastream.update(feedID, datastreamID, { "current_value": 1 }, function(){
                 $(".app-state").removeClass("loading").fadeOut(200);
               });
             }
             else {
-              cosm.datastream.update(feedID, datastreamID, { "current_value": 0 }, function(){
+              xively.datastream.update(feedID, datastreamID, { "current_value": 0 }, function(){
                 $(".app-state").removeClass("loading").fadeOut(200);
               });
             }
           });
 
           // make it live
-          cosm.datastream.subscribe(feedID, datastreamID, function ( event, data ) {
+          xively.datastream.subscribe(feedID, datastreamID, function ( event, data ) {
             ui.fakeLoad();
 
             if ( parseInt(data["current_value"]) ) {
@@ -88,13 +88,13 @@
         // save changes
         $range.on("custom-change", function( event, val ) {
           $(".app-state").addClass("loading").fadeIn(200);
-          cosm.datastream.update(feedID, "volume", { "current_value": val }, function(){
+          xively.datastream.update(feedID, "volume", { "current_value": val }, function(){
             $(".app-state").removeClass("loading").fadeOut(200);
           });
         });
 
         // make it live
-        cosm.datastream.subscribe(feedID, "volume", function ( event, data ) {
+        xively.datastream.subscribe(feedID, "volume", function ( event, data ) {
           ui.fakeLoad();
           $range.val(parseInt(data["current_value"]));
         });
@@ -111,13 +111,13 @@
         // save changes
         $temperature.on("custom-change", function( event, val ) {
           $(".app-state").addClass("loading").fadeIn(200);
-          cosm.datastream.update(feedID, "temperature", { "current_value": val }, function(){
+          xively.datastream.update(feedID, "temperature", { "current_value": val }, function(){
             $(".app-state").removeClass("loading").fadeOut(200);
           });
         });
 
         // make it live
-        cosm.datastream.subscribe( feedID, "temperature", function ( event , data ) {
+        xively.datastream.subscribe( feedID, "temperature", function ( event , data ) {
           ui.fakeLoad();
           $temperature.html( data["current_value"] );
         });

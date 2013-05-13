@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Tutorial - Cosm Javascript Library - Pete Correia</title>
-  <meta name="description" content="Documentation - Cosm Javascript Library - Pete Correia">
+  <title>Tutorial - Xively Javascript Library - Pete Correia</title>
+  <meta name="description" content="Documentation - Xively Javascript Library - Pete Correia">
   <meta name="viewport" content="width=device-width">
-  <link rel="shortcut icon" href="/cosm-js/favicon.ico">
+  <link rel="shortcut icon" href="/xively-js/favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
   <script type="text/javascript" src="//use.typekit.net/tdh7myr.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -17,20 +17,20 @@
 </head>
 <body>
   <header class="app-header clearfix">    
-    <h1 class="app-logo"><a class="app-logo-link" href="/cosm-js/">cosm<span class="color-orange-light">js</span></a></h1>
+    <h1 class="app-logo"><a class="app-logo-link" href="/xively-js/">xively<span class="color-orange-light">js</span></a></h1>
     <nav class="app-navigation">
       <ul class="app-navigation-list clearfix">
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
         </li>
         <li class="app-navigation-item active">
-          <a class="app-navigation-item-link" href="/cosm-js/tutorial/">Tutorial</a>
+          <a class="app-navigation-item-link" href="/xively-js/tutorial/">Tutorial</a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/demo/">Demo</a>
+          <a class="app-navigation-item-link" href="/xively-js/demo/">Demo</a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/sample-app/">Sample<span class="text-long"> App</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/sample-app/">Sample<span class="text-long"> App</span></a>
         </li>
       </ul>
     </nav>
@@ -39,24 +39,24 @@
     
     <h1 class="big-ass-claim ">Tutorial</h1>
 
-    <p>This tutorial will fully cover all the steps needed to <strong>get a datastream value, updating in realtime</strong> on a webpage using CosmJS. &nbsp;&nbsp;<strong><a href="/cosm-js/tutorial/demo/">Live Demo &rarr;</a></strong></p>
+    <p>This tutorial will fully cover all the steps needed to <strong>get a datastream value, updating in realtime</strong> on a webpage using XivelyJS. &nbsp;&nbsp;<strong><a href="/xively-js/tutorial/demo/">Live Demo &rarr;</a></strong></p>
 
     <section class="docs-section" id="needs">
       <h2 class="docs-section-title ">What You Need</h2>
       <ul>
-        <li>A <strong>Cosm feed</strong> with at least one datastream with a value</li>
+        <li>A <strong>Xively feed</strong> with at least one datastream with a value</li>
         <li>An <strong>API key</strong> with read access</li>
       </ul>
     </section>
 
     <section class="tutorial-section" id="step1">
-      <h2 class="section-title"><span class="color-orange-light">Step 1</span> - Link the CosmJS file</h2>
+      <h2 class="section-title"><span class="color-orange-light">Step 1</span> - Link the XivelyJS file</h2>
       <p>First step is to link the javascript file which has the library’s code. Fortunately we host the file on a CDN (Content Delivery Network) so you don’t have to worry about hosting it and it’s likely faster.</p>
-      <p><em><small><strong>Note:</strong> One thing to keep in mind, <strong>CosmJS requires jQuery</strong> so it must be linked before CosmJS on the HTML page.</small></em></p>
+      <p><em><small><strong>Note:</strong> One thing to keep in mind, <strong>XivelyJS requires jQuery</strong> so it must be linked before XivelyJS on the HTML page.</small></em></p>
       <p>The file has to be linked after jQuery and before your script, like so:</p>
 <pre name="code" class="javascript:nocontrols:nogutter">
 &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://d23cj0cdvyoxg0.cloudfront.net/cosmjs-1.0.0.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://d23cj0cdvyoxg0.cloudfront.net/xivelyjs-1.0.0.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
   // Your code
 &lt;/script&gt;
@@ -66,41 +66,41 @@
 
     <section class="tutorial-section" id="step2">
       <h2 class="section-title"><span class="color-orange-light">Step 2</span> - Set the API key</h2>
-      <p>This has to be done <strong>always and before</strong> using any of the methods since it’s required for any interaction with the Cosm API.</p>
-      <p><em><small>If you don’t know how to get a key, log in to Cosm and go to Keys (on top right user menu) — then click “+ Key” for adding a new key — give it a name and click Create. You’ll need the long string of random characters.</small></em></p>
-      <p>On the beginning of your script and before any CosmJS method, paste this code and replace where needed:</p>
+      <p>This has to be done <strong>always and before</strong> using any of the methods since it’s required for any interaction with the Xively API.</p>
+      <p><em><small>If you don’t know how to get a key, log in to Xively and go to Keys (on top right user menu) — then click “+ Key” for adding a new key — give it a name and click Create. You’ll need the long string of random characters.</small></em></p>
+      <p>On the beginning of your script and before any XivelyJS method, paste this code and replace where needed:</p>
 <pre name="code" class="javascript:nocontrols:nogutter">
-// Set the Cosm API key
-cosm.setKey( "PASTE_YOUR_KEY_HERE" );
+// Set the Xively API key
+xively.setKey( "PASTE_YOUR_KEY_HERE" );
 </pre>
-      <p><small>Now you can use any CosmJS method!</small></p>
+      <p><small>Now you can use any XivelyJS method!</small></p>
     </section>
 
     <section class="tutorial-section" id="step3">
       <h2 class="section-title"><span class="color-orange-light">Step 3</span> - Get data and subscribe to updates</h2>
       <p>All the setup is done, it’s time to start using some methods!</p>
-      <p><em><small><strong>Note:</strong> Getting data from Cosm is done <strong>asynchronously</strong> with AJAX requests which means that the rest of your script will continue executing while we wait for Cosm to send the information back to us. <strong>This is important</strong> because you need to specify what should be done when the data comes back using a function, commonly referred to as a “callback”.</small></em></p>
+      <p><em><small><strong>Note:</strong> Getting data from Xively is done <strong>asynchronously</strong> with AJAX requests which means that the rest of your script will continue executing while we wait for Xively to send the information back to us. <strong>This is important</strong> because you need to specify what should be done when the data comes back using a function, commonly referred to as a “callback”.</small></em></p>
       <p>Here’s the code, with comments explaining the process:</p>
 <pre name="code" class="javascript:nocontrols:nogutter">
 // Make sure the document is ready to be handled
 $(document).ready(function($) {
 
-  // Set the Cosm API key (https://cosm.com/users/YOUR_USERNAME/keys)
-  cosm.setKey( &quot;PASTE_YOUR_KEY_HERE&quot; );
+  // Set the Xively API key (https://xively.com/users/YOUR_USERNAME/keys)
+  xively.setKey( &quot;PASTE_YOUR_KEY_HERE&quot; );
 
   // Replace with your own values
   var feedID        = 61916,          // Feed ID
       datastreamID  = &quot;sine60&quot;;       // Datastream ID
       selector      = &quot;#myelement&quot;;   // Your element on the page
 
-  // Get datastream data from Cosm
-  cosm.datastream.get (feedID, datastreamID, function ( datastream ) {
-    // WARNING: This code is only executed when we get a response back from Cosm, 
+  // Get datastream data from Xively
+  xively.datastream.get (feedID, datastreamID, function ( datastream ) {
+    // WARNING: This code is only executed when we get a response back from Xively, 
     // it will likely execute after the rest your script
     //
     // NOTE: The variable &quot;datastream&quot; will contain all the datastream information 
     // as an object,the structure can be found at: 
-    // http://cosm.com/docs/v2/datastream/show.html#examples
+    // http://xively.com/docs/v2/datastream/show.html#examples
 
     // Display the current value from the datastream
     $(selector).html( datastream[&quot;current_value&quot;] );
@@ -108,34 +108,34 @@ $(document).ready(function($) {
     // Getting realtime! 
     // The function associated with the subscribe method will be executed 
     // every time there is an update to the datastream
-    cosm.datastream.subscribe( feedID, datastreamID, function ( event , datastream_updated ) {
+    xively.datastream.subscribe( feedID, datastreamID, function ( event , datastream_updated ) {
       // Display the current value from the updated datastream
       $(selector).html( datastream_updated[&quot;current_value&quot;] );
     });
 
   });
 
-  // WARNING: Code here will continue executing while we get the datastream data from Cosm, 
+  // WARNING: Code here will continue executing while we get the datastream data from Xively, 
   // use the function associated with datastream.get to work with the data 
   // once the request is complete
 });
 </pre>
     </section>
 
-    <p><a class="big-ass-claim" href="/cosm-js/tutorial/demo/">Live Demo &rarr;</a></p>
+    <p><a class="big-ass-claim" href="/xively-js/tutorial/demo/">Live Demo &rarr;</a></p>
     <p class="claim">You're Done!</p>
-    <p>Not working? Report the issue <strong><a href="https://github.com/cosm/cosm-js/issues">here &rarr;</a></strong>
+    <p>Not working? Report the issue <strong><a href="https://github.com/xively/xively-js/issues">here &rarr;</a></strong>
     
   </div>
   <footer class="app-footer tk-bebas-neue">
-    CosmJS is open source. Contribute code or submit an issue on <a href="https://github.com/cosm/cosm-js/">github</a>
-    <p class="copyright">&copy; 2012 <a href="https://cosm.com">Cosm</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
+    XivelyJS is open source. Contribute code or submit an issue on <a href="https://github.com/xively/xively-js/">github</a>
+    <p class="copyright">&copy; 2012 <a href="https://xively.com">Xively</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
   </footer>
   
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   
-  <script defer src="../js/cosmjs-1.0.0.min.js"></script>
+  <script defer src="../js/xivelyjs-1.0.0.min.js"></script>
   <script defer src="../js/script.js"></script>
 
   <script>

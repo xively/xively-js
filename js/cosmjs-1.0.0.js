@@ -1,10 +1,10 @@
-// cosmJS
+// xivelyJS
 // version 1.0.0
-// (c) 2012 Cosm Ltd, a LogMeIn company [pete.correia@cosm.com]
-// http://cosm.github.com/cosm-js/
+// (c) 2012 Xively Ltd, a LogMeIn company [pete.correia@xively.com]
+// http://xively.github.com/xively-js/
 // released under the MIT license
 
-var cosm = (function ( $ ) {
+var xively = (function ( $ ) {
   "use strict";
 
   /*
@@ -14,7 +14,7 @@ var cosm = (function ( $ ) {
   */
 	
   var APIkey,                                         // THIS SHOULD BE CHANGED WITH SETKEY()
-      APIendpoint = "http://api.cosm.com/v2/",
+      APIendpoint = "http://api.xively.com/v2/",
       methods,
   
       // ---------------------
@@ -50,7 +50,7 @@ var cosm = (function ( $ ) {
             }, options);
         
         if ( !APIkey ) { 
-          return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+          return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
         }
         
         if ( !settings.url ) { return; }
@@ -100,7 +100,7 @@ var cosm = (function ( $ ) {
     } 
     
     if ( !ws.socket && window.WebSocket ) { 
-      ws.socket = new WebSocket("ws://api.cosm.com:8080/");
+      ws.socket = new WebSocket("ws://api.xively.com:8080/");
     
       ws.socket.onerror = function( e ) {
         if ( ws.error ) { ws.error( e, this ); }
@@ -123,7 +123,7 @@ var cosm = (function ( $ ) {
         var data      = e.data,
             response  = JSON.parse( data );
         if ( response.body ) {
-          $('body').trigger( "cosm."+ response.resource, response.body );
+          $('body').trigger( "xively."+ response.resource, response.body );
         }
       };
     }
@@ -135,7 +135,7 @@ var cosm = (function ( $ ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"subscribe", "resource":"'+ resource +'"}';
         
     if ( !APIkey ) { 
-      return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+      return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
     }
     
     if ( !ws.resources[resource] ) {
@@ -153,7 +153,7 @@ var cosm = (function ( $ ) {
     }
     
     if ( callback && typeof callback === "function" ) {
-      $( document ).on( "cosm."+ resource, callback );
+      $( document ).on( "xively."+ resource, callback );
     }
   };
   
@@ -163,7 +163,7 @@ var cosm = (function ( $ ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}';
         
     if ( !APIkey ) { 
-      return log( "(cosmJS) ::: No API key ::: Set your API key first with cosm.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+      return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
     }
   
     if ( ws.socket ) {
@@ -226,7 +226,7 @@ var cosm = (function ( $ ) {
             var response = event.current_value ? event : data;
             if ( response.current_value ) {
               $( selector ).each(function() {
-                $( this ).html( response.current_value ).attr( 'data-cosm-resource', resource );
+                $( this ).html( response.current_value ).attr( 'data-xively-resource', resource );
               });
             }
           };
@@ -242,7 +242,7 @@ var cosm = (function ( $ ) {
     //
     
     stop : function ( selector ) {
-      ws.unsubscribe( $( selector ).first().attr( 'data-cosm-resource' ) );
+      ws.unsubscribe( $( selector ).first().attr( 'data-xively-resource' ) );
     },
   
     // ---------------------
@@ -535,13 +535,13 @@ var cosm = (function ( $ ) {
       },
       methods = {
         live : function ( options ) {
-          cosm.live( this, resourcify( options ) );
+          xively.live( this, resourcify( options ) );
           return this;
         },
         get  : function ( options ) {
           var $this = $( this );
-          cosm.request({
-            url    : cosm.endpoint + resourcify( options ) +".json", 
+          xively.request({
+            url    : xively.endpoint + resourcify( options ) +".json", 
             always : function ( data ) {
               $this.each(function(){
                 $(this).html( data.current_value );
@@ -552,7 +552,7 @@ var cosm = (function ( $ ) {
         }
       };
 
-  $.fn.cosm = function ( method ) {
+  $.fn.xively = function ( method ) {
     if ( methods[method] ) {
       return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } 

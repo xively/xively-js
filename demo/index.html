@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Demo - Cosm Javascript Library - Pete Correia</title>
-  <meta name="description" content="Documentation - Cosm Javascript Library - Pete Correia">
+  <title>Demo - xively Javascript Library - Pete Correia</title>
+  <meta name="description" content="Documentation - xively Javascript Library - Pete Correia">
   <meta name="viewport" content="width=device-width">
-  <link rel="shortcut icon" href="/cosm-js/favicon.ico">
+  <link rel="shortcut icon" href="/xively-js/favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
   <script type="text/javascript" src="//use.typekit.net/tdh7myr.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -17,20 +17,20 @@
 </head>
 <body>
   <header class="app-header clearfix">    
-    <h1 class="app-logo"><a class="app-logo-link" href="/cosm-js/">cosm<span class="color-orange-light">js</span></a></h1>
+    <h1 class="app-logo"><a class="app-logo-link" href="/xively-js/">xively<span class="color-orange-light">js</span></a></h1>
     <nav class="app-navigation">
       <ul class="app-navigation-list clearfix">
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/docs/">Doc<span class="text-short">s</span><span class="text-long">umentation</span></a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/tutorial/">Tutorial</a>
+          <a class="app-navigation-item-link" href="/xively-js/tutorial/">Tutorial</a>
         </li>
         <li class="app-navigation-item active">
-          <a class="app-navigation-item-link" href="/cosm-js/demo/">Demo</a>
+          <a class="app-navigation-item-link" href="/xively-js/demo/">Demo</a>
         </li>
         <li class="app-navigation-item">
-          <a class="app-navigation-item-link" href="/cosm-js/sample-app/">Sample<span class="text-long"> App</span></a>
+          <a class="app-navigation-item-link" href="/xively-js/sample-app/">Sample<span class="text-long"> App</span></a>
         </li>
       </ul>
     </nav>
@@ -42,50 +42,50 @@
     <section class="docs-section" id="view-feeds">
       <h2 class="docs-section-title ">Feeds</h2>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.get (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.get (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="get-feed" type="text" value="61916">
         <button class="button" id="get-perform">Get feed</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.update (<span class="docs-method-arguments">feedID, data{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.update (<span class="docs-method-arguments">feedID, data{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="update-value" type="text" placeholder="Insert a value">
         <button class="button" id="update-perform">Update feed</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.new (<span class="docs-method-arguments">data{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.new (<span class="docs-method-arguments">data{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="new-title" type="text" placeholder="Insert a feed name">
         <button class="button" id="new-perform">Create feed</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.delete (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.delete (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="delete-feed" type="text" placeholder="Insert a feed ID">
         <button class="button" id="delete-perform">Delete feed</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.history (<span class="docs-method-arguments">feedID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.history (<span class="docs-method-arguments">feedID, options{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <button class="button" id="history-perform">Get feed history</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.list (<span class="docs-method-arguments">options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.list (<span class="docs-method-arguments">options{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="list-user" type="text" placeholder="(Optional) Username">
         <input id="list-tag" type="text" placeholder="(Optional) Tag">
         <button class="button" id="list-perform">Get list of feeds</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.subscribe (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.subscribe (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="subscribe-feed" type="text" value="61916">
         <button class="button" id="subscribe-perform">Subscribe feed</button>
         <small>&nbsp;&nbsp;Wait for console logs when feed updates</small>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.feed.unsubscribe (<span class="docs-method-arguments">feedID</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.unsubscribe (<span class="docs-method-arguments">feedID</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="unsubscribe-feed" type="text" value="61916">
         <button class="button" id="unsubscribe-perform">Unsubscribe feed</button>
@@ -95,45 +95,45 @@
     <section class="docs-section" id="view-feeds">
       <h2 class="docs-section-title ">Datastreams</h2>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.get (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.get (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="getDatastream-feed" type="text" value="61916">
         <input id="getDatastream-datastream" type="text" value="random5">
         <button class="button" id="getDatastream-perform">Get datastream</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.update (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.update (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="updateDatastream-value" type="text" placeholder="Insert a value">
         <button class="button" id="updateDatastream-perform">Update datastream</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.new (<span class="docs-method-arguments">feedID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.new (<span class="docs-method-arguments">feedID, data{}, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="newDatastream-feed" type="text" value="89825">
         <input id="newDatastream-id" type="text" placeholder="Insert a datastream id">
         <button class="button" id="newDatastream-perform">Create datastream</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.delete (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.delete (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="deleteDatastream-feed" type="text" value="89825">
         <input id="deleteDatastream-datastream" type="text" placeholder="Insert a datastream id">
         <button class="button" id="deleteDatastream-perform">Delete datastream</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <button class="button" id="historyDatastream-perform">Get datastream history</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.list (<span class="docs-method-arguments">feedID, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.list (<span class="docs-method-arguments">feedID, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="listDatastream-feed" type="text" value="89825">
         <button class="button" id="listDatastream-perform">Get datastream list</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.subscribe (<span class="docs-method-arguments">feedID, datastreamID, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.subscribe (<span class="docs-method-arguments">feedID, datastreamID, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="subscribeDatastream-feed" type="text" value="61916">
         <input id="subscribeDatastream-datastream" type="text" value="sine60">
@@ -141,7 +141,7 @@
         <small>&nbsp;&nbsp;Wait for console logs when feed updates</small>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datastream.unsubscribe (<span class="docs-method-arguments">feedID, datastreamID</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.unsubscribe (<span class="docs-method-arguments">feedID, datastreamID</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="unsubscribeDatastream-feed" type="text" value="61916">
         <input id="unsubscribeDatastream-datastream" type="text" value="sine60">
@@ -152,7 +152,7 @@
     <section class="docs-section" id="view-feeds">
       <h2 class="docs-section-title ">Datapoints</h2>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.get (<span class="docs-method-arguments">feedID, datastreamID, timestamp, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.get (<span class="docs-method-arguments">feedID, datastreamID, timestamp, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="getDatapoint-feed" type="text" value="89825">
         <input id="getDatapoint-datastream" type="text" value="test">
@@ -160,7 +160,7 @@
         <button class="button" id="getDatapoint-perform">Get datapoint</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.update (<span class="docs-method-arguments">feedID, datastreamID, timestamp, value, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.update (<span class="docs-method-arguments">feedID, datastreamID, timestamp, value, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="putDatapoint-feed" type="text" value="89825">
         <input id="putDatapoint-datastream" type="text" value="test">
@@ -169,12 +169,12 @@
         <button class="button" id="putDatapoint-perform">Update datapoint</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.new (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.new (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <button class="button" id="newDatapoint-perform">Create datapoint</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.delete (<span class="docs-method-arguments">feedID, datastreamID, timestamp or options{} , callback (data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.delete (<span class="docs-method-arguments">feedID, datastreamID, timestamp or options{} , callback (data)</span>)</h3>
       <p class="docs-demo clearfix">
         <input id="deleteDatapoint-feed" type="text" value="89825">
         <input id="deleteDatapoint-datastream" type="text" value="test">
@@ -182,7 +182,7 @@
         <button class="button" id="deleteDatapoint-perform">Delete datapoint</button>
       </p>
 
-      <h3 class="docs-method"><span class="docs-method-main-namespace">cosm</span>.datapoint.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
+      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-demo clearfix">
         <button class="button" id="historyDatapoint-perform">Get datapoint history</button>
       </p>
@@ -199,14 +199,14 @@
   </section>
 
   <footer class="app-footer tk-bebas-neue">
-    CosmJS is open source. Contribute code or submit an issue on <a href="https://github.com/cosm/cosm-js/">github</a>
-    <p class="copyright">&copy; 2012 <a href="https://cosm.com">Cosm</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
+    xivelyJS is open source. Contribute code or submit an issue on <a href="https://github.com/xively/xively-js/">github</a>
+    <p class="copyright">&copy; 2012 <a href="https://xively.com">xively</a> Ltd, a <a href="https://secure.logmein.com/">LogMeIn</a> company</p>
   </footer>
   
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.7.1.min.js"><\/script>')</script>
   
-  <script defer src="../js/cosmjs-1.0.0.js"></script>
+  <script defer src="../js/xivelyjs-1.0.0.js"></script>
   <script defer src="../js/demo-script.js"></script>
 
   <script>

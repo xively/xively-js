@@ -1,10 +1,10 @@
 (function ( $ ){
   "use strict";
   
-  cosm.setKey( "yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g" );
+  xively.setKey( "yWYxyi3HpdqFCBtKHueTvOGoGROSAKxGRFAyQWk5d3JNdz0g" );
   
-  $('.demo-streams .stream-1').cosm('live', { feed: 56996, datastream: 'light' });
-  $('.demo-streams .stream-2').cosm('live', { feed: 56996, datastream: 'temperature' });
+  $('.demo-streams .stream-1').xively('live', { feed: 56996, datastream: 'light' });
+  $('.demo-streams .stream-2').xively('live', { feed: 56996, datastream: 'temperature' });
 
   if ( window.MozWebSocket ) {
     window.WebSocket = window.MozWebSocket;
