@@ -1,6 +1,6 @@
 // xivelyJS
-// version 1.0.0
-// (c) 2012 Xively Ltd, a LogMeIn company [pete.correia@xively.com]
+// version 1.0.3
+// (c) 2013 Xively Ltd, a LogMeIn company [pete.correia@xively.com]
 // http://xively.github.com/xively-js/
 // released under the MIT license
 
@@ -12,11 +12,13 @@ var xively = (function ( $ ) {
   *   PRIVATE VARS & METHODS
   *
   */
-	
+  
   var APIkey,                                         // THIS SHOULD BE CHANGED WITH SETKEY()
       APIendpoint = "http://api.xively.com/v2/",
+      WSendpoint = "ws://api.xively.com:8080/",
       methods,
-  
+      cacheRequest = false,
+
       // ---------------------
       // HELPERS 
       //
@@ -74,7 +76,7 @@ var xively = (function ( $ ) {
           data        : settings.data,
           crossDomain : true,
           dataType    : 'json',
-          cache       : false
+          cache       : cacheRequest
         })
         .done(settings.done)
         .fail(settings.fail)
@@ -100,7 +102,7 @@ var xively = (function ( $ ) {
     } 
     
     if ( !ws.socket && window.WebSocket ) { 
-      ws.socket = new WebSocket("ws://api.xively.com:8080/");
+      ws.socket = new WebSocket(WSendpoint);
     
       ws.socket.onerror = function( e ) {
         if ( ws.error ) { ws.error( e, this ); }
@@ -173,7 +175,7 @@ var xively = (function ( $ ) {
   
   // disable caching
   $.ajaxSetup ({
-    cache: false
+    cache: cacheRequest
   });
 
   /*
@@ -182,9 +184,39 @@ var xively = (function ( $ ) {
   *
   */
 
-	methods = {
+  methods = {
     endpoint : APIendpoint,
-  
+
+    // ---------------------
+    // SET API ENDPOINT
+    //
+
+    setEndpoint : function(endpoint) {
+      APIendpoint = endpoint;
+    },
+
+    // ---------------------
+    // SET WS ENDPOINT
+    //
+
+    setWSEndpoint : function(endpoint) {
+      WSendpoint = endpoint;
+    },
+
+    // ---------------------
+    // SET CACHE
+    //
+
+    setCache : function(enabled) {
+      if (enabled !== cacheRequest) {
+        cacheRequest = enabled;
+
+        $.ajaxSetup ({
+          cache: cacheRequest
+        });
+      }
+    },
+
     // ---------------------
     // SET API KEY 
     //
@@ -502,7 +534,7 @@ var xively = (function ( $ ) {
         });
       }
     }
-	};
+  };
 
   /*
   *
@@ -510,7 +542,7 @@ var xively = (function ( $ ) {
   *
   */
   
-	return methods;
+  return methods;
 })( jQuery );
 
 /*
