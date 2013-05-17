@@ -159,7 +159,7 @@ var xively = (function ( $ ) {
     }
   };
   
-  // SUBSCRIBE 
+  // UNSUBSCRIBE 
   
   ws.unsubscribe = function ( resource ) {
     var request  = '{"headers":{"X-ApiKey":"' + APIkey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}';
