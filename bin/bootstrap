@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+sudo npm uninstall -g grunt
+sudo npm install -g grunt-cli
+npm install

@@ -1,4 +1,4 @@
-# xivelyjs 1.0.3
+# xivelyjs
 
 ## Xively Javascript Library
 
