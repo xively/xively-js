@@ -92,16 +92,14 @@ var xively = (function ( $ ) {
         queue       : [],
         resources   : []
       };
-  
+
   // CONNECT 
   
   ws.connect   = function ( callback ) {
-    if ( window.MozWebSocket ) {
-      window.WebSocket = window.MozWebSocket;
-    } 
-    
-    if ( !ws.socket && window.WebSocket ) { 
-      ws.socket = new WebSocket(WSendpoint);
+    var WSProvider = (window.SockJS || window.MozWebSocket || window.WebSocket);
+
+    if ( !ws.socket && WSProvider ) { 
+      ws.socket = new WSProvider(WSendpoint);
     
       ws.socket.onerror = function( e ) {
         if ( ws.error ) { ws.error( e, this ); }
