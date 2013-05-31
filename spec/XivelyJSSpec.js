@@ -1,24 +1,51 @@
 describe("XivelyJS", function() {
   beforeEach(function() {
-    // this.xively = new XivelyClient();
+    this.xively = new XivelyClient();
   });
 
-  // describe(".setKey", function() {
-    // it("should allow setting the api key", function() {
-      // expect(xively.setKey).toBeDefined();
-    // });
-  // });
+  describe(".setKey", function() {
+    it("should set the key on our client instance", function() {
+      this.xively.setKey("my_key");
+      expect(this.xively._settings().apiKey).toEqual("my_key");
+    });
+  });
 
-  // describe(".VERSION", function() {
-    // it("should expose the version string", function() {
-      // expect(xively.VERSION).toBeDefined();
-    // });
-  // });
+  describe(".setApiEndpoint", function() {
+    it("should allow setting the apiEndpoint on our client instance", function() {
+      this.xively.setApiEndpoint("http://example.com");
+      expect(this.xively._settings().apiEndpoint).toEqual("http://example.com");
+    });
+  });
 
-  // describe(".setEndpoint", function() {
-    // it("should allow setting the endpoint", function() {
-    // });
-  // });
+  describe(".setWsEndpoint", function() {
+    it("should allow setting the web socket endpoint on our client instance", function() {
+      this.xively.setWsEndpoint("ws://example.com");
+      expect(this.xively._settings().wsEndpoint).toEqual("ws://example.com");
+    });
+  });
+
+  describe(".setSockJSEndpoint", function() {
+    it("should allow setting the sockJS endpoint on our client instance", function() {
+      this.xively.setSockJSEndpoint("http://example.com");
+      expect(this.xively._settings().sockjsEndpoint).toEqual("http://example.com");
+    });
+  });
+
+  describe(".apiEndpoint", function() {
+    it("should expose the api endpoint for use by the jquery plugin", function() {
+      expect(this.xively.apiEndpoint).toEqual(this.xively._settings().apiEndpoint);
+    });
+  });
+
+  describe(".version", function() {
+    it("should expose the version string", function() {
+      expect(xively.version()).toBeDefined();
+    });
+  });
+
+  describe(".request", function() {
+
+  });
 
   // describe(".feed", function() {
     // describe(".subscribe", function() {
