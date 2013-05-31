@@ -7,23 +7,14 @@
       // Allow use of jQuery, Zepto or ender with Xively.js in the style of Backbone
       $ = root.jQuery || root.Zepto || root.ender || root.$;
 
-  var XivelyClient = function() {
+  var SocketTransport = function(apiHost) {
+    var self = this,
+        socket = false,
+        socketReady = false,
+        queue = [],
 
-    // private stuff
-    var version = "1.0.4-alpha",
-
-        apiEndpoint = "https://api.xively.com/v2",
-
-        wsEndpoint = "ws://api.xively.com:8080",
-
-        sockjsEndpoint = "https://api.xively.com:8093/sockjs",
-
-        cacheRequest = false,
-
-        apiKey,
-
-        // var which will hold the public API we are going to expose
-        methods,
+        wsEndpoint = "ws://" + apiHost + ":8080",
+        sockjsEndpoint = "https://" + apiHost + ":8093/sockjs",
 
         execute = function ( arr ) {
           if ( typeof arr === "function" ) {
@@ -35,7 +26,75 @@
               arr[x].apply( this, Array.prototype.slice.call( arguments, 1 ));
             }
           }
-        },
+        };
+
+    this.connect = function(callback) {
+      var SocketProvider = (window.SockJS || window.MozWebSocket || window.WebSocket),
+          socketEndpoint;
+
+      if ( !socket && SocketProvider ) {
+        if ( window.SockJS ) {
+          socketEndpoint = sockjsEndpoint;
+        } else {
+          socketEndpoint = wsEndpoint;
+        }
+
+        socket = new SocketProvider(socketEndpoint);
+
+        socket.onerror = function( e ) {
+          if ( self.error ) { self.error( e, this ); }
+          self.connect();
+        };
+
+        socket.onclose = function( e ) {
+          if ( self.close ) { self.close( e, this ); }
+          self.connect();
+        };
+
+        socket.onopen = function( e ) {
+          socketReady = true;
+          if ( self.open )         { self.open( e, this ); }
+          if ( queue.length )  { execute( queue ); }
+          if ( callback )         { callback( this ); }
+        };
+
+        socket.onmessage = function( e ) {
+          var data      = e.data,
+              response  = JSON.parse( data );
+          if ( response.body ) {
+            $('body').trigger( "xively."+ response.resource, response.body );
+          }
+        };
+      }
+    };
+
+    this.send = function(message) {
+      if (!socketReady) {
+        this.connect();
+        queue.push(function() {
+          socket.send(message);
+        });
+      } else {
+        socket.send(message);
+      }
+    };
+  };
+
+  var XivelyClient = function(apiHost) {
+    // set the default api host
+    apiHost = (apiHost || "api.xively.com");
+
+    // private stuff
+    var version = "1.0.4-alpha",
+
+        apiEndpoint = "https://" + apiHost + "/v2",
+
+        cacheRequest = false,
+
+        apiKey,
+
+        // var which will hold the public API we are going to expose
+        methods,
 
         // log helper method that doesn't break in environments
         log = function(msg) {
@@ -70,7 +129,9 @@
             url         : settings.url,
             type        : settings.type,
             headers     : {
-              "X-ApiKey" : apiKey
+              "X-ApiKey" : apiKey,
+              "Content-Type": "application/json",
+              "User-Agent": "xively-js/" + version
             },
             data        : settings.data,
             crossDomain : true,
@@ -82,93 +143,8 @@
           .always(settings.always);
         },
 
-        ws = {
-          socket: false,
-          socketReady: false,
-          queue: [],
-          resources: [],
-          connect: function(callback) {
-            var SocketProvider = (window.SockJS || window.MozWebSocket || window.WebSocket),
-                socketEndpoint;
-
-            if ( !ws.socket && SocketProvider ) {
-              if ( window.SockJS ) {
-                socketEndpoint = sockjsEndpoint;
-              } else {
-                socketEndpoint = wsEndpoint;
-              }
-
-              ws.socket = new SocketProvider(socketEndpoint);
-
-              ws.socket.onerror = function( e ) {
-                if ( ws.error ) { ws.error( e, this ); }
-                ws.connect();
-              };
-
-              ws.socket.onclose = function( e ) {
-                if ( ws.close ) { ws.close( e, this ); }
-                ws.connect();
-              };
-
-              ws.socket.onopen = function( e ) {
-                ws.socketReady = true;
-                if ( ws.open )         { ws.open( e, this ); }
-                if ( ws.queue.length )  { execute( ws.queue ); }
-                if ( callback )         { callback( this ); }
-              };
-
-              ws.socket.onmessage = function( e ) {
-                var data      = e.data,
-                    response  = JSON.parse( data );
-                if ( response.body ) {
-                  $('body').trigger( "xively."+ response.resource, response.body );
-                }
-              };
-            }
-          },
-          subscribe: function(resource, callback) {
-            var request  = '{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"subscribe", "resource":"'+ resource +'"}';
-
-            if ( !apiKey ) {
-              return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
-            }
-
-            if ( ws.resources.indexOf(resource) < 0 ) {
-              ws.resources.push( resource );
-
-              if ( !ws.socketReady ) {
-                ws.connect();
-                ws.queue.push(function() {
-                  ws.socket.send( request );
-                });
-              }
-              else {
-                ws.socket.send( request );
-              }
-            }
-
-            if ( callback && typeof callback === "function" ) {
-              $( document ).on( "xively."+ resource, callback );
-            }
-          },
-          unsubscribe: function(resource) {
-            var index = ws.resources.indexOf(resource);
-
-            if (index >= 0) {
-              ws.resources.splice(index, 1);
-            }
-
-            var request  = '{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}';
-
-            if ( !apiKey ) {
-              return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
-            }
-
-            if ( ws.socket ) {
-              ws.socket.send( request );
-            }
-          }
-        };
+        resources = [],
+        ws = new SocketTransport(apiHost);
 
     // disable caching
     $.ajaxSetup ({
@@ -186,18 +162,6 @@
       apiKey = newKey;
     };
 
-    this.setApiEndpoint = function(endpoint) {
-      apiEndpoint = endpoint;
-    };
-
-    this.setWsEndpoint = function(endpoint) {
-      wsEndpoint = endpoint;
-    };
-
-    this.setSockJSEndpoint = function(endpoint) {
-      sockjsEndpoint = endpoint;
-    };
-
     // ---------------------------------
     // Expose api endpoint
     //
@@ -210,11 +174,34 @@
 
     // this.subscribe = ws.subscribe.bind(ws);
     this.subscribe = function(resource, callback) {
-      ws.subscribe(resource, callback);
+      var request  = '{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"subscribe", "resource":"'+ resource +'"}';
+
+      if ( !apiKey ) {
+        return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+      }
+
+      if ( resources.indexOf(resource) < 0 ) {
+        resources.push( resource );
+
+        ws.send( request );
+      }
+
+      if ( callback && typeof callback === "function" ) {
+        $( document ).on( "xively."+ resource, callback );
+      }
     };
 
     this.unsubscribe = function(resource) {
-      ws.unsubscribe(resource);
+      if ( !apiKey ) {
+        return log( "(xivelyJS) ::: No API key ::: Set your API key first with xively.setKey( YOUR_API_KEY ) before using any methods. Check docs for more info." );
+      }
+
+      var index = resources.indexOf(resource);
+
+      if (index >= 0) {
+        resources.splice(index, 1);
+        ws.send('{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}');
+      }
     };
 
     this.live = function (selector, resource) {
@@ -230,11 +217,11 @@
         url    : apiEndpoint + resource,
         always : callback
       });
-      ws.subscribe( resource, callback );
+      this.subscribe( resource, callback );
     };
 
     this.stop = function ( selector ) {
-      ws.unsubscribe( $( selector ).first().attr( 'data-xively-resource' ) );
+      this.unsubscribe( $( selector ).first().attr( 'data-xively-resource' ) );
     };
 
     // ---------------------------------
@@ -292,13 +279,13 @@
 
       subscribe: function(id, callback) {
         if (id) {
-          ws.subscribe("/feeds/" + id, callback);
+          this.subscribe("/feeds/" + id, callback);
         }
       },
 
       unsubscribe : function ( id, callback ) {
         if ( id ) {
-          ws.unsubscribe( "/feeds/"+ id );
+          this.unsubscribe( "/feeds/"+ id );
         }
       }
     };
@@ -359,13 +346,13 @@
 
       subscribe : function ( feed_id, datastream_id, callback ) {
         if ( feed_id && datastream_id ) {
-          ws.subscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id, callback );
+          this.subscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id, callback );
         }
       },
 
       unsubscribe : function ( feed_id, datastream_id, callback ) {
         if ( feed_id && datastream_id ) {
-          ws.unsubscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
+          this.unsubscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
         }
       },
 
@@ -446,8 +433,6 @@
       return {
         apiKey: apiKey,
         apiEndpoint: apiEndpoint,
-        wsEndpoint: wsEndpoint,
-        sockjsEndpoint: sockjsEndpoint,
         cacheRequest: cacheRequest
       };
     };
