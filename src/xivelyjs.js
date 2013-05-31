@@ -1,8 +1,7 @@
 (function() {
   "use strict";
 
-  // Save a reference to the global object ('window' in the browser, ,'exports'
-  // on the server.
+  // Save a reference to the global object
   var root = this,
 
       // Allow use of jQuery, Zepto or ender with Xively.js in the style of Backbone
@@ -209,11 +208,16 @@
     //
     this.request = request;
 
-    this.subscribe = ws.subscribe.bind(ws);
+    // this.subscribe = ws.subscribe.bind(ws);
+    this.subscribe = function(resource, callback) {
+      ws.subscribe(resource, callback);
+    };
 
-    this.unsubscribe = ws.unsubscribe.bind(ws);
+    this.unsubscribe = function(resource) {
+      ws.unsubscribe(resource);
+    };
 
-    this.live = function ( selector, resource ) {
+    this.live = function (selector, resource) {
       var callback = function ( event, data ) {
         var response = event.current_value ? event : data;
         if ( response.current_value ) {
