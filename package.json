@@ -1,6 +1,6 @@
 {
   "name": "xively-js",
-  "version": "1.0.3",
+  "version": "1.0.4-alpha",
   "description": "The official JavaScript library for interfacing web apps with Xively™",
   "main": "Gruntfile.js",
   "directories": {
@@ -18,5 +18,8 @@
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-uglify": "~0.1.0",
     "grunt-contrib-jasmine": ""
+  },
+  "scripts": {
+    "test": "grunt"
   }
 }
