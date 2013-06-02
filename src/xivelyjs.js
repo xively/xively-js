@@ -5,81 +5,83 @@
   var root = this,
 
       // Allow use of jQuery, Zepto or ender with Xively.js in the style of Backbone
-      $ = root.jQuery || root.Zepto || root.ender || root.$;
+      $ = root.jQuery || root.Zepto || root.ender || root.$,
 
-  var SocketTransport = function(apiHost) {
-    var self = this,
-        socket = false,
-        socketReady = false,
-        queue = [],
+      // Wraps all socket connection and message sending logic
+      SocketTransport = function(apiHost) {
+        var self = this,
+            socket = false,
+            socketReady = false,
+            queue = [],
 
-        wsEndpoint = "ws://" + apiHost + ":8080",
-        sockjsEndpoint = "https://" + apiHost + ":8093/sockjs",
+            wsEndpoint = "ws://" + apiHost + ":8080",
+            sockjsEndpoint = "https://" + apiHost + ":8093/sockjs",
 
-        execute = function ( arr ) {
-          if ( typeof arr === "function" ) {
-            arr.apply( this, Array.prototype.slice.call( arguments, 1 ));
-          }
-          else if ( Object.prototype.toString.apply(arr) === '[object Array]' ) {
-            var x = arr.length;
-            while (x--) {
-              arr[x].apply( this, Array.prototype.slice.call( arguments, 1 ));
+            execute = function ( arr ) {
+              if ( typeof arr === "function" ) {
+                arr.apply( this, Array.prototype.slice.call( arguments, 1 ));
+              }
+              else if ( Object.prototype.toString.apply(arr) === '[object Array]' ) {
+                var x = arr.length;
+                while (x--) {
+                  arr[x].apply( this, Array.prototype.slice.call( arguments, 1 ));
+                }
+              }
+            };
+
+        this.connect = function(callback) {
+          var SocketProvider = (window.SockJS || window.MozWebSocket || window.WebSocket),
+              socketEndpoint;
+
+          if ( !socket && SocketProvider ) {
+            if ( window.SockJS ) {
+              socketEndpoint = sockjsEndpoint;
+            } else {
+              socketEndpoint = wsEndpoint;
             }
+
+            socket = new SocketProvider(socketEndpoint);
+
+            socket.onerror = function( e ) {
+              if ( self.error ) { self.error( e, this ); }
+              self.connect();
+            };
+
+            socket.onclose = function( e ) {
+              if ( self.close ) { self.close( e, this ); }
+              self.connect();
+            };
+
+            socket.onopen = function( e ) {
+              socketReady = true;
+              if ( self.open )         { self.open( e, this ); }
+              if ( queue.length )  { execute( queue ); }
+              if ( callback )         { callback( this ); }
+            };
+
+            socket.onmessage = function( e ) {
+              var data      = e.data,
+                  response  = JSON.parse( data );
+              if ( response.body ) {
+                $('body').trigger( "xively."+ response.resource, response.body );
+              }
+            };
           }
         };
 
-    this.connect = function(callback) {
-      var SocketProvider = (window.SockJS || window.MozWebSocket || window.WebSocket),
-          socketEndpoint;
-
-      if ( !socket && SocketProvider ) {
-        if ( window.SockJS ) {
-          socketEndpoint = sockjsEndpoint;
-        } else {
-          socketEndpoint = wsEndpoint;
-        }
-
-        socket = new SocketProvider(socketEndpoint);
-
-        socket.onerror = function( e ) {
-          if ( self.error ) { self.error( e, this ); }
-          self.connect();
-        };
-
-        socket.onclose = function( e ) {
-          if ( self.close ) { self.close( e, this ); }
-          self.connect();
-        };
-
-        socket.onopen = function( e ) {
-          socketReady = true;
-          if ( self.open )         { self.open( e, this ); }
-          if ( queue.length )  { execute( queue ); }
-          if ( callback )         { callback( this ); }
-        };
-
-        socket.onmessage = function( e ) {
-          var data      = e.data,
-              response  = JSON.parse( data );
-          if ( response.body ) {
-            $('body').trigger( "xively."+ response.resource, response.body );
+        this.send = function(message) {
+          if (!socketReady) {
+            this.connect();
+            queue.push(function() {
+              socket.send(message);
+            });
+          } else {
+            socket.send(message);
           }
         };
-      }
-    };
+      };
 
-    this.send = function(message) {
-      if (!socketReady) {
-        this.connect();
-        queue.push(function() {
-          socket.send(message);
-        });
-      } else {
-        socket.send(message);
-      }
-    };
-  };
-
+  // Main Xively client object
   var XivelyClient = function(apiHost) {
     // set the default api host
     apiHost = (apiHost || "api.xively.com");
@@ -156,7 +158,7 @@
     };
 
     // ---------------------------------
-    // Set api credentials and endpoints
+    // Set API Key
     //
     this.setKey = function(newKey) {
       apiKey = newKey;
@@ -367,7 +369,6 @@
           this.stop( element );
         }
       }
-
     };
 
     // ---------------------------------
