@@ -11,7 +11,18 @@ module.exports = function (grunt) {
       options: {
         specs: 'spec/*Spec.js',
         helpers: 'spec/*Helper.js',
-        vendor: 'vendor/**/*.js'
+        vendor: 'vendor/**/*.js',
+        template: require('grunt-template-jasmine-istanbul'),
+        templateOptions: {
+          coverage: 'coverage/coverage.json',
+          report: 'coverage',
+          thresholds: {
+            lines: 44,
+            statements: 43,
+            branches: 28,
+            functions: 27
+          }
+        }
       }
     },
     jshint: {
