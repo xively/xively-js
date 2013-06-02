@@ -433,7 +433,7 @@
     this._settings = function() {
       return {
         apiKey: apiKey,
-        apiEndpoint: apiEndpoint,
+        apiHost: apiHost,
         cacheRequest: cacheRequest
       };
     };

@@ -7,7 +7,7 @@ describe("XivelyJS", function() {
   describe("initialization", function() {
     it("should allow setting the apiEndpoint on our client instance", function() {
       this.xively = new XivelyClient("example.com");
-      expect(this.xively._settings().apiEndpoint).toEqual("https://example.com/v2");
+      expect(this.xively._settings().apiHost).toEqual("example.com");
     });
   });
 
@@ -19,7 +19,7 @@ describe("XivelyJS", function() {
 
   describe(".apiEndpoint", function() {
     it("should expose the api endpoint for use by the jquery plugin", function() {
-      expect(this.xively.apiEndpoint).toEqual(this.xively._settings().apiEndpoint);
+      expect(this.xively.apiEndpoint).toEqual("https://api.xively.com/v2");
     });
   });
 
