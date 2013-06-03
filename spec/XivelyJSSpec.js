@@ -53,7 +53,6 @@ describe("XivelyJS", function() {
       expect(request.method).toEqual("GET");
       expect(request.requestHeaders["X-ApiKey"]).toEqual("my_key");
       expect(request.requestHeaders["Content-Type"]).toEqual("application/json");
-      expect(request.requestHeaders["User-Agent"]).toContain("xively-js/");
     });
   });
 

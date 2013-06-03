@@ -137,8 +137,7 @@
             type        : settings.type,
             headers     : {
               "X-ApiKey" : apiKey,
-              "Content-Type": "application/json",
-              "User-Agent": "xively-js/" + version
+              "Content-Type": "application/json"
             },
             data        : settings.data,
             crossDomain : true,
