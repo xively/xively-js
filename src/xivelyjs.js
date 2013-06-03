@@ -149,15 +149,20 @@
           .always(settings.always);
         },
 
-        resources = [],
-        ws = new SocketTransport(apiHost);
+        resources = [];
 
     // disable caching
     $.ajaxSetup ({
       cache: cacheRequest
     });
 
-    this._ws = ws;
+    this.socket = function() {
+      if (this._ws) {
+        return this._ws;
+      }
+
+      return (this._ws = new SocketTransport(apiHost));
+    };
 
     this.version = function() {
       return version;
@@ -191,7 +196,7 @@
       if ( resources.indexOf(resource) < 0 ) {
         resources.push( resource );
 
-        this._ws.send( request );
+        this.socket().send( request );
       }
 
       if ( callback && typeof callback === "function" ) {
@@ -208,7 +213,7 @@
 
       if (index >= 0) {
         resources.splice(index, 1);
-        this._ws.send('{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}');
+        this.socket().send('{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}');
       }
     };
 
