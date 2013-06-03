@@ -92,7 +92,7 @@
 
     // private stuff
     var self = this,
-        version = "1.0.4-alpha",
+        version = "1.0.4",
 
         apiEndpoint = protocol() + "//" + apiHost + "/v2",
 
