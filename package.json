@@ -1,6 +1,6 @@
 {
   "name": "xively-js",
-  "version": "1.0.4-alpha",
+  "version": "1.0.4",
   "description": "The official JavaScript library for interfacing web apps with Xively™",
   "main": "Gruntfile.js",
   "directories": {
