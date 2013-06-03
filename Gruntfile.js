@@ -36,7 +36,7 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.license %> */\n'
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> | Copyright <%= pkg.author %> | <%= pkg.license %> */\n'
       },
       regular: {
         options: {

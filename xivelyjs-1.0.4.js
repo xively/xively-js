@@ -1,4 +1,4 @@
-/*! xively-js v1.0.4 | BSD */
+/*! xively-js v1.0.4 | Copyright Xively (LogMeIn Inc.) | BSD 3-Clause license */
 (function() {
     "use strict";
     // Save a reference to the global object
@@ -78,7 +78,7 @@
         // set the default api host
         apiHost = apiHost || "api.xively.com";
         // private stuff
-        var self = this, version = "1.0.4-alpha", apiEndpoint = protocol() + "//" + apiHost + "/v2", cacheRequest = false, apiKey, // var which will hold the public API we are going to expose
+        var self = this, version = "1.0.4", apiEndpoint = protocol() + "//" + apiHost + "/v2", cacheRequest = false, apiKey, // var which will hold the public API we are going to expose
         methods, // log helper method that doesn't break in environments without console.log
         log = function(msg) {
             if (window.console && window.console.log) {
