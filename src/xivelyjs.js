@@ -87,7 +87,8 @@
     apiHost = (apiHost || "api.xively.com");
 
     // private stuff
-    var version = "1.0.4-alpha",
+    var self = this,
+        version = "1.0.4-alpha",
 
         apiEndpoint = "https://" + apiHost + "/v2",
 
@@ -98,7 +99,7 @@
         // var which will hold the public API we are going to expose
         methods,
 
-        // log helper method that doesn't break in environments
+        // log helper method that doesn't break in environments without console.log
         log = function(msg) {
           if (window.console && window.console.log) {
             window.console.log( msg );
@@ -153,6 +154,8 @@
       cache: cacheRequest
     });
 
+    this._ws = ws;
+
     this.version = function() {
       return version;
     };
@@ -185,7 +188,7 @@
       if ( resources.indexOf(resource) < 0 ) {
         resources.push( resource );
 
-        ws.send( request );
+        this._ws.send( request );
       }
 
       if ( callback && typeof callback === "function" ) {
@@ -202,7 +205,7 @@
 
       if (index >= 0) {
         resources.splice(index, 1);
-        ws.send('{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}');
+        this._ws.send('{"headers":{"X-ApiKey":"' + apiKey + '"}, "method":"unsubscribe", "resource":"'+ resource +'"}');
       }
     };
 
@@ -281,13 +284,13 @@
 
       subscribe: function(id, callback) {
         if (id) {
-          this.subscribe("/feeds/" + id, callback);
+          self.subscribe("/feeds/" + id, callback);
         }
       },
 
       unsubscribe : function ( id, callback ) {
         if ( id ) {
-          this.unsubscribe( "/feeds/"+ id );
+          self.unsubscribe( "/feeds/"+ id );
         }
       }
     };
@@ -348,25 +351,25 @@
 
       subscribe : function ( feed_id, datastream_id, callback ) {
         if ( feed_id && datastream_id ) {
-          this.subscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id, callback );
+          self.subscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id, callback );
         }
       },
 
       unsubscribe : function ( feed_id, datastream_id, callback ) {
         if ( feed_id && datastream_id ) {
-          this.unsubscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
+          self.unsubscribe( "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
         }
       },
 
       live : function ( element, feed_id, datastream_id ) {
         if ( element && feed_id && datastream_id ) {
-          this.live( element, "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
+          self.live( element, "/feeds/"+ feed_id +"/datastreams/"+ datastream_id );
         }
       },
 
       stop : function ( element ) {
         if ( element ) {
-          this.stop( element );
+          self.stop( element );
         }
       }
     };

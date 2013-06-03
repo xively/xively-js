@@ -88,6 +88,12 @@ describe("XivelyJS", function() {
         expect(this.callback.callCount).toEqual(1);
         expect(this.callback2.callCount).toEqual(1);
       });
+
+      it("should not subscribe if apikey is not set", function() {
+        this.xively = new XivelyClient();
+        this.xively.subscribe("/feeds/123", this.callback);
+        expect(window.WebSocket).not.toHaveBeenCalled();
+      });
     });
 
     describe("Mozilla WebSocket", function() {
@@ -105,7 +111,7 @@ describe("XivelyJS", function() {
         window.MozWebSocket = this.oldMozWebSocket;
       });
 
-      it("should connect over MozWebSocket", function() {
+      it("should connect over MozWebSocket in preference to WebSocket if defined", function() {
         this.xively.subscribe("/feeds/123", this.callback);
         expect(window.WebSocket).not.toHaveBeenCalled();
         expect(window.MozWebSocket).toHaveBeenCalledWith("ws://api.xively.com:8080");
@@ -133,7 +139,7 @@ describe("XivelyJS", function() {
         window.SockJS = this.oldSockJS;
       });
 
-      it("should connect over SockJS", function() {
+      it("should connect over SockJS in preference to either MozWebSocket or WebSocket if defined", function() {
         this.xively.subscribe("/feeds/123", this.callback);
         expect(window.WebSocket).not.toHaveBeenCalled();
         expect(window.MozWebSocket).not.toHaveBeenCalled();
@@ -146,58 +152,96 @@ describe("XivelyJS", function() {
   });
 
   describe(".unsubscribe", function() {
-    
+    beforeEach(function() {
+      this.ws = { send: jasmine.createSpy('send') };
+      this.xively._ws = this.ws;
+      this.callback = jasmine.createSpy("callback");
+    });
+
+    it("should not unsubscribe if api key is not set", function() {
+      this.xively = new XivelyClient();
+      this.xively._ws = this.ws;
+      this.xively.unsubscribe("/feeds/123");
+      expect(this.ws.send).not.toHaveBeenCalled();
+    });
+
+    describe("when previously subscribed", function() {
+      beforeEach(function() {
+        this.xively.subscribe("/feeds/123", this.callback);
+      });
+
+      it("should unsubscribe", function() {
+        this.xively.unsubscribe("/feeds/123");
+        expect(this.ws.send).toHaveBeenCalledWith('{"headers":{"X-ApiKey":"my_key"}, "method":"unsubscribe", "resource":"/feeds/123"}');
+      });
+    });
   });
 
-  // describe(".feed", function() {
-    // describe(".subscribe", function() {
-      // beforeEach(function() {
-        // this.oldWebSocket = window.WebSocket;
-        // delete window.WebSocket;
-        // this.oldMozWebSocket = window.MozWebSocket;
-        // delete window.MozWebSocket;
-        // this.oldSockJS = window.SockJS;
-        // delete window.SockJS;
+  describe(".feed", function() {
+    describe(".subscribe", function() {
+      beforeEach(function() {
+        this.ws = { send: jasmine.createSpy('send') };
+        this.xively._ws = this.ws;
+        this.callback = jasmine.createSpy("callback");
+      });
 
-        // xively.setKey("my_key");
-        // this.mockSocket = {};
-        // window.WebSocket = jasmine.createSpy("WebSocket");
-        // this.endpoint = "http://example.com";
-        // xively.setWSEndpoint(this.endpoint);
-        // xively.setSockJSEndpoint(this.endpoint);
-      // });
+      it("should subscribe", function() {
+        this.xively.feed.subscribe(123, this.callback);
+        expect(this.ws.send).toHaveBeenCalledWith('{"headers":{"X-ApiKey":"my_key"}, "method":"subscribe", "resource":"/feeds/123"}');
+      });
 
-      // afterEach(function() {
-        // window.WebSocket = this.oldWebSocket;
-        // window.MozWebSocket = this.oldMozWebSocket;
-        // window.SockJS = this.oldSockJS;
-        // xively.reset();
-      // });
+      it("should only subscribe once but hook up multiple callbacks", function() {
+        this.callback2 = jasmine.createSpy("callback2");
+        this.xively.feed.subscribe(123, this.callback);
+        this.xively.feed.subscribe(123, this.callback2);
+        expect(this.ws.send.callCount).toEqual(1);
+        $( document ).trigger('xively./feeds/123', "some-data");
+        expect(this.callback.callCount).toEqual(1);
+        expect(this.callback2.callCount).toEqual(1);
+      });
 
-      // it("should connect over websockets", function() {
-        // xively.feed.subscribe(123);
-        // expect(window.WebSocket).toHaveBeenCalledWith(this.endpoint);
-      // });
+      it("should not subscribe if apikey is not set", function() {
+        this.xively = new XivelyClient();
+        this.xively.feed.subscribe(123, this.callback);
+        expect(this.ws.send).not.toHaveBeenCalled();
+      });
 
-      // it("should prefer MozWebSocket if available", function() {
-        // window.MozWebSocket = jasmine.createSpy("MozWebSocket");
+      it("should not subscribe if feed_id is not set", function() {
+        this.xively = new XivelyClient();
+        this.xively.feed.subscribe(null, this.callback);
+        expect(this.ws.send).not.toHaveBeenCalled();
+      });
+    });
 
-        // xively.feed.subscribe(123);
+    describe(".unsubscribe", function() {
+      beforeEach(function() {
+        this.ws = { send: jasmine.createSpy('send') };
+        this.xively._ws = this.ws;
+        this.callback = jasmine.createSpy("callback");
+      });
 
-        // expect(window.WebSocket).not.toHaveBeenCalled();
-        // expect(window.MozWebSocket).toHaveBeenCalledWith(this.endpoint);
-      // });
+      it("should not unsubscribe if api key is not set", function() {
+        this.xively = new XivelyClient();
+        this.xively._ws = this.ws;
+        this.xively.feed.unsubscribe(123);
+        expect(this.ws.send).not.toHaveBeenCalled();
+      });
 
-      // it("should prefer sock.js if available", function() {
-        // window.MozWebSocket = jasmine.createSpy("MozWebSocket");
-        // window.SockJS = jasmine.createSpy("SockJS")
+      describe("when previously subscribed", function() {
+        beforeEach(function() {
+          this.xively.feed.subscribe(123, this.callback);
+        });
 
-        // xively.feed.subscribe(123);
+        it("should unsubscribe", function() {
+          this.xively.feed.unsubscribe(123, this.callback);
+          expect(this.ws.send).toHaveBeenCalledWith('{"headers":{"X-ApiKey":"my_key"}, "method":"unsubscribe", "resource":"/feeds/123"}');
+        });
 
-        // expect(window.WebSocket).not.toHaveBeenCalled();
-        // expect(window.MozWebSocket).not.toHaveBeenCalled();
-        // expect(window.SockJS).toHaveBeenCalledWith(this.endpoint);
-      // });
-    // });
-  // });
+        it("should not unsubscribe if no feed id is set", function() {
+          this.xively.feed.unsubscribe(null, this.callback);
+          expect(this.ws.send.callCount).toEqual(1);
+        });
+      });
+    });
+  });
 });
