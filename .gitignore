@@ -1,3 +1,7 @@
 *.sw?
 node_modules
 npm-debug.log
+.grunt
+_SpecRunner.html
+index.html
+coverage

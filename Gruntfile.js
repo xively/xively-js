@@ -11,7 +11,18 @@ module.exports = function (grunt) {
       options: {
         specs: 'spec/*Spec.js',
         helpers: 'spec/*Helper.js',
-        vendor: 'vendor/**/*.js'
+        vendor: 'vendor/**/*.js',
+        template: require('grunt-template-jasmine-istanbul'),
+        templateOptions: {
+          coverage: 'coverage/coverage.json',
+          report: 'coverage',
+          thresholds: {
+            lines: 44,
+            statements: 43,
+            branches: 28,
+            functions: 27
+          }
+        }
       }
     },
     jshint: {
@@ -25,10 +36,20 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.license %> */\n'
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> | Copyright <%= pkg.author %> | <%= pkg.license %> */\n'
       },
-      build: {
-        src: 'src/**/*.js',
+      regular: {
+        options: {
+          mangle: false,
+          compress: false,
+          beautify: true,
+          preserveComments: 'all'
+        },
+        src: ['src/xivelyjs.js', 'src/**/*.js'],
+        dest: 'xivelyjs-<%= pkg.version %>.js'
+      },
+      minify: {
+        src: ['src/xivelyjs.js', 'src/**/*.js'],
         dest: 'xivelyjs-<%= pkg.version %>.min.js'
       }
     }
