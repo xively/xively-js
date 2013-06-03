@@ -38,7 +38,17 @@ module.exports = function (grunt) {
       options: {
         banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.license %> */\n'
       },
-      build: {
+      regular: {
+        options: {
+          mangle: false,
+          compress: false,
+          beautify: true,
+          preserveComments: 'all'
+        },
+        src: ['src/xivelyjs.js', 'src/**/*.js'],
+        dest: 'xivelyjs-<%= pkg.version %>.js'
+      },
+      minify: {
         src: ['src/xivelyjs.js', 'src/**/*.js'],
         dest: 'xivelyjs-<%= pkg.version %>.min.js'
       }
