@@ -19,7 +19,7 @@ describe("XivelyJS", function() {
 
   describe(".apiEndpoint", function() {
     it("should expose the api endpoint for use by the jquery plugin", function() {
-      expect(this.xively.apiEndpoint).toEqual("https://api.xively.com/v2");
+      expect(this.xively.apiEndpoint).toEqual("http://api.xively.com/v2");
     });
   });
 
@@ -49,7 +49,7 @@ describe("XivelyJS", function() {
       var request = mostRecentAjaxRequest();
       request.response(this.responses.feed.get);
 
-      expect(request.url).toMatch("https:\/\/api.xively.com\/v2\/feeds\/123");
+      expect(request.url).toMatch(/https?:\/\/api.xively.com\/v2\/feeds\/123/);
       expect(request.method).toEqual("GET");
       expect(request.requestHeaders["X-ApiKey"]).toEqual("my_key");
       expect(request.requestHeaders["Content-Type"]).toEqual("application/json");
@@ -143,7 +143,7 @@ describe("XivelyJS", function() {
         this.xively.subscribe("/feeds/123", this.callback);
         expect(window.WebSocket).not.toHaveBeenCalled();
         expect(window.MozWebSocket).not.toHaveBeenCalled();
-        expect(window.SockJS).toHaveBeenCalledWith("https://api.xively.com:8093/sockjs");
+        expect(window.SockJS).toHaveBeenCalledWith("http://api.xively.com:8082/sockjs");
         expect(this.mockSocket.onopen).toEqual(jasmine.any(Function))
         this.mockSocket.onopen();
         expect(this.mockSocket.send).toHaveBeenCalledWith('{"headers":{"X-ApiKey":"my_key"}, "method":"subscribe", "resource":"/feeds/123"}');

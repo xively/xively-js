@@ -7,15 +7,16 @@
       // Allow use of jQuery, Zepto or ender with Xively.js in the style of Backbone
       $ = root.jQuery || root.Zepto || root.ender || root.$,
 
+      protocol = function() {
+        return (document.location.protocol === "https:" ? "https:" : "http:");
+      },
+
       // Wraps all socket connection and message sending logic
       SocketTransport = function(apiHost) {
         var self = this,
             socket = false,
             socketReady = false,
             queue = [],
-
-            wsEndpoint = "ws://" + apiHost + ":8080",
-            sockjsEndpoint = "https://" + apiHost + ":8093/sockjs",
 
             execute = function ( arr ) {
               if ( typeof arr === "function" ) {
@@ -31,13 +32,16 @@
 
         this.connect = function(callback) {
           var SocketProvider = (window.SockJS || window.MozWebSocket || window.WebSocket),
-              socketEndpoint;
+              socketEndpoint,
+              socketPort;
 
           if ( !socket && SocketProvider ) {
             if ( window.SockJS ) {
-              socketEndpoint = sockjsEndpoint;
+              socketPort = (protocol() === "https:" ? 8093 : 8082); // TODO: double-check these ports are right
+              socketEndpoint = protocol() + "//" + apiHost + ":" + socketPort + "/sockjs";
             } else {
-              socketEndpoint = wsEndpoint;
+              socketPort = (protocol() === "https:" ? 8094 : 8080); // TODO: double-check these ports are right
+              socketEndpoint = (protocol() === "https:" ? "wss:" : "ws:") + "//" + apiHost + ":" + socketPort;
             }
 
             socket = new SocketProvider(socketEndpoint);
@@ -90,7 +94,7 @@
     var self = this,
         version = "1.0.4-alpha",
 
-        apiEndpoint = "https://" + apiHost + "/v2",
+        apiEndpoint = protocol() + "//" + apiHost + "/v2",
 
         cacheRequest = false,
 
