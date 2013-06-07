@@ -50,23 +50,22 @@
     
     <section class="docs-section" id="view-feeds">
       <h2 class="docs-section-title ">Feeds</h2>
+      <div class="docs-info">
+        <p>Every Device on Xively owns a single Feed, in which it stores its data, metadata, and waypoints.  For more on creating Devices, visit <a href="Xively">https://xively.com</a>.</p>
+      </div>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.get (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.update (<span class="docs-method-arguments">feedID, data{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://xively.com/docs/v2/feed/update.html#examples">this json structure</a>
-      </p>
-      <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.new (<span class="docs-method-arguments">data{}, callback(data)</span>)</h3>
-      <p class="docs-info">
-        data{} - Object with <a href="http://xively.com/docs/v2/feed/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/dev/docs/api/data/write/multiple_datapoints_to_multiple_data_streams/">this JSON structure</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.delete (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.history (<span class="docs-method-arguments">feedID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="https://xively.com/dev/docs/api/quick_reference/historical_data/">specified here</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.list (<span class="docs-method-arguments">options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/feed/list.html">specified here</a>
+        options{} - Object containing the parameters <a href="https://xively.com/dev/docs/api/quick_reference/search_feeds/">specified here</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.subscribe (<span class="docs-method-arguments">feedID, callback(event, data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.feed.unsubscribe (<span class="docs-method-arguments">feedID</span>)</h3>
@@ -74,19 +73,22 @@
     
     <section class="docs-section" id="view-datastreams">
       <h2 class="docs-section-title ">Datastreams</h2>
+      <div class="docs-info">
+        <p>In most cases, it is recommended to use the Feed-level update function to update Datastreams instead of updating them individually.  This lets you affect multiple datastreams in a Feed simultaneously.</p>
+      </div>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.get (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.update (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://xively.com/docs/v2/datastream/update.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/dev/docs/api/data/write/multiple_datapoints_to_multiple_data_streams/">this JSON structure</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.new (<span class="docs-method-arguments">feedID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://xively.com/docs/v2/datastream/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/dev/docs/api/data/write/multiple_datapoints_to_multiple_data_streams/">this JSON structure</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.delete (<span class="docs-method-arguments">feedID, datastreamID, callback (data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="https://xively.com/dev/docs/api/quick_reference/historical_data/">specified here</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.list (<span class="docs-method-arguments">feedID, callback(data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datastream.subscribe (<span class="docs-method-arguments">feedID, datastreamID, callback(event, data)</span>)</h3>
@@ -101,15 +103,15 @@
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.update (<span class="docs-method-arguments">feedID, datastreamID, timestamp, value, callback (data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.new (<span class="docs-method-arguments">feedID, datastreamID, data{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        data{} - Object with <a href="http://xively.com/docs/v2/datapoint/create.html#examples">this json structure</a>
+        data{} - Object with <a href="http://xively.com/dev/docs/api/data/write/multiple_datapoints_to_multiple_data_streams/">this JSON structure</a>
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.delete (<span class="docs-method-arguments">feedID, datastreamID, timestamp or options{}, callback (data)</span>)</h3>
       <p class="docs-info">
-        If you want to delete multiple datapoints, pass an object instead of a timestamp with <a href="http://xively.com/docs/v2/datapoint/delete_bulk.html">keys specified here</a>.
+        If you want to delete multiple datapoints, pass an object instead of a timestamp <a href="https://xively.com/dev/docs/api/data/delete/delete_multiple_datapoints/">as specified here</a>.
       </p>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.datapoint.history (<span class="docs-method-arguments">feedID, datastreamID, options{}, callback(data)</span>)</h3>
       <p class="docs-info">
-        options{} - Object containing the parameters <a href="http://xively.com/docs/v2/history.html">specified here</a>
+        options{} - Object containing the parameters <a href="https://xively.com/dev/docs/api/quick_reference/historical_data/">specified here</a>
       </p>
     </section>
     
@@ -130,13 +132,13 @@
     </section>
     
     <section class="docs-section" id="view-web-sockets">
-      <h2 class="docs-section-title ">Socket Server (beta)</h2>
+      <h2 class="docs-section-title ">Socket Server (Beta)</h2>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.subscribe (<span class="docs-method-arguments">resource, callback(event, data)</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.unsubscribe (<span class="docs-method-arguments">resource</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.live (<span class="docs-method-arguments">CSS selector, resource</span>)</h3>
       <h3 class="docs-method"><span class="docs-method-main-namespace">xively</span>.stop (<span class="docs-method-arguments">CSS selector</span>)</h3>
       <p class="docs-info">
-        Subscribe to the socket server (beta) via <strong>WebSocket</strong>. Info on the resource argument is <a href="http://xively.com/docs/beta/socket_server/#resource">here</a>.
+        Subscribe to the socket server via <strong>WebSockets</strong>. Info on the resource argument is <a href="https://xively.com/dev/docs/api/communicating/sockets/">here</a>.
       </p>
     </section>
     

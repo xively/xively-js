@@ -39,7 +39,7 @@
     
     <h1 class="big-ass-claim ">Tutorial</h1>
 
-    <p>This tutorial will fully cover all the steps needed to <strong>get a datastream value, updating in realtime</strong> on a webpage using XivelyJS. &nbsp;&nbsp;<strong><a href="/xively-js/tutorial/demo/">Live Demo &rarr;</a></strong></p>
+    <p>This tutorial will fully cover all the steps needed to <strong>get real-time updating data</strong> on a webpage using XivelyJS. &nbsp;&nbsp;<strong><a href="/xively-js/tutorial/demo/">Live Demo &rarr;</a></strong></p>
 
     <section class="docs-section" id="needs">
       <h2 class="docs-section-title ">What You Need</h2>
@@ -98,9 +98,9 @@ $(document).ready(function($) {
     // WARNING: This code is only executed when we get a response back from Xively, 
     // it will likely execute after the rest your script
     //
-    // NOTE: The variable &quot;datastream&quot; will contain all the datastream information 
-    // as an object,the structure can be found at: 
-    // http://xively.com/docs/v2/datastream/show.html#examples
+    // NOTE: The variable &quot;datastream&quot; will contain all the Datastream information 
+    // as an object. The structure of Datastream objects can be found at: 
+    // https://xively.com/dev/docs/api/quick_reference/api_resource_attributes/#datastream
 
     // Display the current value from the datastream
     $(selector).html( datastream[&quot;current_value&quot;] );
