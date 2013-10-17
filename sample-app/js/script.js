@@ -1,11 +1,11 @@
 (function ( $ ){
   "use strict";
 
-  var feedID = 79650;
+  var feedID = 1918193692;
 
   // SET API KEY
   
-  xively.setKey( "FzZOVUxKRPl_Tvvtr1z77b8gOVCSAKxlTnlwSzQrZ3U4MD0g" ); // do not use this one, create your own at xively.com
+  xively.setKey( "ghildTixfCVNheEnjX7t9lQI1ymThDvdlHhPzGfp6wPxCerO" ); // do not use this one, create your own at xively.com
 
   // get all feed data in one shot
 
@@ -16,8 +16,8 @@
         datastream,
         value,
         // function for setting up the toggle inputs
-        handleToggle = function ( datastreamID, value ) {
-          var $toggle = $(".js-"+ datastreamID +"-toggle");
+        handleToggle = function ( id_name, datastreamID, value ) {
+          var $toggle = $(".js-"+ id_name +"-toggle");
 
           if ( value ) {
             // lights are on
@@ -29,7 +29,7 @@
           }
 
           // save changes
-          $(".js-"+ datastreamID).on("change", function(){
+          $(".js-"+ id_name).on("change", function(){
             $(".app-state").addClass("loading").fadeIn(200);
 
             if ( this.checked ) {
@@ -65,45 +65,16 @@
       datastream = feed.datastreams[x];
       value = parseInt(datastream["current_value"]);
 
-      // LIGHTS
+      // LED
 
-      if ( datastream.id === "lights" ) {
-        handleToggle( "lights", value );
+      if ( datastream.id === "led_color" ) {
+        handleToggle( "lights", "led_color", value );
       }
 
-      // TV
 
-      if ( datastream.id === "tv-state" ) {
-        handleToggle( "tv-state", value );
-      }
+      // UPTIME
 
-      // MUSIC
-
-      if ( datastream.id === "volume" ) {
-        var $range = $(".js-volume");
-        
-        // set value
-        $range.val(value);
-
-        // save changes
-        $range.on("custom-change", function( event, val ) {
-          $(".app-state").addClass("loading").fadeIn(200);
-          xively.datastream.update(feedID, "volume", { "current_value": val }, function(){
-            $(".app-state").removeClass("loading").fadeOut(200);
-          });
-        });
-
-        // make it live
-        xively.datastream.subscribe(feedID, "volume", function ( event, data ) {
-          ui.fakeLoad();
-          $range.val(parseInt(data["current_value"]));
-        });
-
-      }      
-
-      // TEMPERATURE
-
-      if ( datastream.id === "temperature" ) {
+      if ( datastream.id === "uptime" ) {
         var $temperature = $(".js-temperature");
 
         $temperature.html( datastream["current_value"] );
