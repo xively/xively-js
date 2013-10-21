@@ -1,11 +1,17 @@
 (function ( $ ){
   "use strict";
 
-  var feedID = 1918193692;
+  function getParam(key) {
+    var value = location.hash.match(new RegExp(key+'=([^&]*)'));
+    if (value) {
+      return value[1];
+    } else {
+      return "";
+    }
+  }
 
-  // SET API KEY
-  
-  xively.setKey( "ghildTixfCVNheEnjX7t9lQI1ymThDvdlHhPzGfp6wPxCerO" ); // do not use this one, create your own at xively.com
+  var feedID = getParam('feed_id');
+  xively.setKey(getParam('api_key'));
 
   // get all feed data in one shot
 
