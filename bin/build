@@ -1,3 +1,8 @@
 #!/bin/bash -e
 
-grunt build $@ && (ls xivelyjs-*.js | xargs -i -- bash -c "gzip < {} > {}.gz")
+node_modules/.bin/grunt build $@
+if [ $? = 0 ]
+then for i in xivelyjs-*.js
+  do gzip < $i > $i.gz
+done
+fi
