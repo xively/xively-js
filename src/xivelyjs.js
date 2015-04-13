@@ -482,7 +482,7 @@
       update: function(productid, deviceserial, data, callback) {
 
           request({
-        	type	: "put",
+            type    : "put",
             url     : apiEndpoint +"/products/"+ productid +"/devices/" + deviceserial,
             data	: data,
             always  : callback
@@ -491,7 +491,7 @@
       'delete': function(productid, deviceserial, callback) {
 
           request({
-        	type	: "delete",
+            type    : "delete",
             url     : apiEndpoint +"/products/"+ productid +"/devices/" + deviceserial,
             always  : callback
           });
