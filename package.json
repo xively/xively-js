@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git://github.com/xively/xively-js.git"
   },
-  "author": "Xively (LogMeIn Inc.)",
+  "author": "Xively",
   "license": "BSD 3-Clause license",
   "readmeFilename": "README.md",
   "devDependencies": {
