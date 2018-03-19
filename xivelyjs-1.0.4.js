@@ -1,4 +1,4 @@
-/*! xively-js v1.0.4 | Copyright Xively (LogMeIn Inc.) | BSD 3-Clause license */
+/*! xively-js v1.0.4 | Copyright Xively | BSD 3-Clause license */
 (function() {
     "use strict";
     // Save a reference to the global object
