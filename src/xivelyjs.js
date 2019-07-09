@@ -440,6 +440,76 @@
         });
       }
     };
+    
+    
+    
+    // ---------------------------------
+    // Devices module
+    //
+    this.devices = {
+      list: function(productid, options, callback) {
+        request({
+          url     : apiEndpoint +"/products/"+ productid +"/devices",
+          data    : options,
+          always  : callback
+        });
+      },
+      
+      activate: function(activationcode, callback) {
+          request({
+            url     : apiEndpoint +"/devices/"+ activationcode +"/activate",
+            always  : callback
+          });
+        },
+
+      create: function(productid, data, callback) {
+        request({
+          type    : "post",
+          url     : apiEndpoint +"/products/" + productid + "/devices",
+          data    : data,
+          always  : callback
+        });
+      },
+      
+      read: function(productid, deviceserial, callback) {
+
+          request({
+            url     : apiEndpoint +"/products/"+ productid +"/devices/" + deviceserial,
+            always  : callback
+          });
+      },
+
+      update: function(productid, deviceserial, data, callback) {
+
+          request({
+            type    : "put",
+            url     : apiEndpoint +"/products/"+ productid +"/devices/" + deviceserial,
+            data	: data,
+            always  : callback
+          });
+      },
+      'delete': function(productid, deviceserial, callback) {
+
+          request({
+            type    : "delete",
+            url     : apiEndpoint +"/products/"+ productid +"/devices/" + deviceserial,
+            always  : callback
+          });
+      }
+
+
+    };
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     this._settings = function() {
       return {
